@@ -1,0 +1,23 @@
+.block {
+  font-size: 11px;
+  border: 2px solid greenyellow;
+  display:inline-flex;
+}
+
+.lesson {
+  width: 100px;
+  height: 70px;
+
+}
+
+.block button {
+  width: 20px;
+  height: 20px;
+  border-radius: 15px;
+}
+
+.cell {
+  border: 2px solid darkturquoise;
+  display: inline-flex;
+  flex-direction: column;
+}

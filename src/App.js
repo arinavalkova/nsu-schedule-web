@@ -1,26 +1,29 @@
-import './App.css';
+import './styles/App.css';
+import Cell from "./components/Cell";
+import Lesson from "./components/Lesson";
 
 function App() {
+
+    const firstLesson = {
+        type: "лек",
+        name: "ОП Java-программ",
+        room: "1133",
+        tutor: "Адаманский А.В.",
+        week: "Нечетная"
+    }
+
+    const secondLesson = {
+        type: "лек",
+        name: "Раз.прил.Android",
+        room: "1133",
+        tutor: "Степанов П.А.",
+        week: "четная"
+    }
+
     return (
-        <table border="1">
-            <tr>
-                <td>Понедельноиририк</td>
-                <td>Вторник</td>
-            </tr>
-            <tr>
-                <td>
-                    <table border="1">
-                        <tr>
-                            <td>Пара по C#</td>
-                        </tr>
-                        <tr>
-                            <td>Пара по МИМИ</td>
-                        </tr>
-                    </table>
-                </td>
-                <td>Пара по КРПО</td>
-            </tr>
-        </table>
+        <div>
+            <Cell lessons = {[firstLesson, secondLesson]}/>
+        </div>
     );
 }
 

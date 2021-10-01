@@ -1,4 +1,5 @@
 import React from 'react';
+import DeleteButton from "./DeleteButton";
 
 const Lesson = (props) => {
     return (
@@ -10,7 +11,7 @@ const Lesson = (props) => {
                 <div>{props.lesson.tutor}</div>
                 <div>{props.lesson.week}</div>
             </div>
-            <button>-</button>
+            <DeleteButton remove = {props.remove} lesson = {props.lesson}/>
         </div>
     );
 };

@@ -1,13 +1,11 @@
 .block {
   font-size: 11px;
-  border: 2px solid greenyellow;
   display:inline-flex;
+  border-bottom: 3px solid greenyellow;
 }
 
 .lesson {
   width: 100px;
-  height: 70px;
-
 }
 
 .block button {
@@ -17,7 +15,23 @@
 }
 
 .cell {
-  border: 2px solid darkturquoise;
   display: inline-flex;
   flex-direction: column;
+  min-width: 120px;
+  min-height: 80px;
+}
+
+.scheduleTable {
+  border: 2px solid darkturquoise;
+  font-size: 11px;
+}
+
+.scheduleTable td {
+  border: 3px solid darkturquoise;
+  vertical-align: top;
+}
+
+.scheduleTable th {
+  padding: 2px;
+  border: 3px solid darkturquoise;
 }

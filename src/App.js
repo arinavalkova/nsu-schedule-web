@@ -1,6 +1,7 @@
 import './styles/App.css';
 import ScheduleTable from "./components/ScheduleTable";
 import {useState} from "react";
+import AddLessonForm from "./components/AddLessonForm";
 
 function App() {
 
@@ -60,6 +61,7 @@ function App() {
 
     return (
         <div>
+            <AddLessonForm>hello</AddLessonForm>
             <ScheduleTable remove={removeLesson} lessons={lessons}/>
             <button onClick={addLesson}>Add lesson</button>
         </div>

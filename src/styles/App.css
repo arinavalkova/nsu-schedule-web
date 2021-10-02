@@ -1,7 +1,7 @@
 .block {
     font-size: 11px;
     display: inline-flex;
-    border-bottom: 3px solid greenyellow;
+    border-bottom: 3px solid saddlebrown;
 }
 
 .lesson {
@@ -22,16 +22,30 @@
 }
 
 .scheduleTable {
-    border: 2px solid darkturquoise;
+    border: 2px solid saddlebrown;
     font-size: 11px;
 }
 
 .scheduleTable td {
-    border: 3px solid darkturquoise;
+    border: 3px solid saddlebrown;
     vertical-align: top;
 }
 
 .scheduleTable th {
     padding: 2px;
-    border: 3px solid darkturquoise;
+    border: 3px solid saddlebrown;
+}
+
+button {
+    background: navajowhite;
+}
+
+.app {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.appContent {
+    display: inline-grid;
 }

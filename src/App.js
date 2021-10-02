@@ -1,6 +1,7 @@
 import './styles/App.css';
 import ScheduleTable from "./components/ScheduleTable";
 import {useState} from "react";
+import AddLessonModal from "./components/AddLessonModal";
 import AddLessonForm from "./components/AddLessonForm";
 
 function App() {
@@ -49,21 +50,26 @@ function App() {
         week: "четная"
     }
 
-    const addLesson = () => {
-        setLesson([...lessons, fourthLesson])
+    const addLesson = (lesson) => {
+        setLesson([...lessons,lesson])
     }
 
     const removeLesson = (lesson) => {
         setLesson(lessons.filter(l => l.id !== lesson.id))
     }
 
-    const [lessons, setLesson] = useState([firstLesson, secondLesson, thirdLesson])
+    const [lessons, setLesson] = useState([firstLesson, secondLesson, thirdLesson, fourthLesson])
+    const [addLessonForm, setAddLessonForm] = useState(false)
 
     return (
-        <div>
-            <AddLessonForm>hello</AddLessonForm>
-            <ScheduleTable remove={removeLesson} lessons={lessons}/>
-            <button onClick={addLesson}>Add lesson</button>
+        <div className="app">
+            <div className={"appContent"}>
+                <AddLessonModal visible={addLessonForm} setVisible={setAddLessonForm}>
+                    <AddLessonForm addLesson={addLesson} setVisible={setAddLessonForm}/>
+                </AddLessonModal>
+                <ScheduleTable remove={removeLesson} lessons={lessons}/>
+                <button onClick={() => setAddLessonForm(true)}>Создать новую пару</button>
+            </div>
         </div>
     );
 }

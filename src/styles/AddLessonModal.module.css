@@ -12,12 +12,19 @@
     padding: 25px;
     background: white;
     border-radius: 16px;
-    min-width: 250px;
-
+    max-width: 250px;
 }
 
 .addLessonForm.active {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.addLesson select {
+    margin-bottom: 7px;
+}
+
+.addLesson input {
+    margin-bottom: 7px;
 }

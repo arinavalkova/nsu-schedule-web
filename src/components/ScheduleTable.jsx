@@ -1,11 +1,8 @@
 import React from 'react';
 import Cell from "./Cell";
+import {days, times} from "../Consts"
 
 const ScheduleTable = (props) => {
-
-    const times = ["9:00", "10:50", "12:40", "14:30", "16:20", "18:10", "20:00"]
-
-    const days = ["пн", "вт", "ср", "чт", "пт", "сб"]
 
     function getLessonsForThisTimeAndDay(day, time) {
         return props.lessons.filter(lesson => lesson.day === day && lesson.time === time)

@@ -1,7 +1,11 @@
 .block {
     font-size: 11px;
     display: inline-flex;
-    border-bottom: 3px solid saddlebrown;
+    border-top: 3px solid saddlebrown;
+}
+
+.block:first-child {
+    border-top: none;
 }
 
 .lesson {
@@ -22,7 +26,7 @@
 }
 
 .scheduleTable {
-    border: 2px solid saddlebrown;
+    border: 3px solid saddlebrown;
     font-size: 11px;
 }
 

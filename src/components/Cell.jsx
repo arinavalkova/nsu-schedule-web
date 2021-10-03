@@ -1,11 +1,11 @@
 import React from 'react';
 import Lesson from "./Lesson";
 
-const Cell = (props) => {
+const Cell = ({lessons, remove}) => {
     return (
         <div className="cell">
-            {props.lessons.map(lesson =>
-                <Lesson remove = {props.remove} lesson={lesson} key={lesson.id}/>
+            {lessons.map(lesson =>
+                <Lesson remove = {remove} lesson={lesson} key={lesson.id}/>
             )}
         </div>
     );

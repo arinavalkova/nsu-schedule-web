@@ -1,8 +1,8 @@
 import React from 'react';
 
-const DeleteButton = (props) => {
+const DeleteButton = ({lesson, remove}) => {
     return (
-        <button onClick={() => props.remove(props.lesson)}>-</button>
+        <button onClick={() => remove(lesson)}>-</button>
     );
 };
 

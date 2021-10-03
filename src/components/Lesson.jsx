@@ -1,17 +1,17 @@
 import React from 'react';
 import DeleteButton from "./DeleteButton";
 
-const Lesson = (props) => {
+const Lesson = ({lesson, remove}) => {
     return (
         <div className="block">
             <div className="lesson">
-                <div>{props.lesson.type}</div>
-                <div>{props.lesson.name}</div>
-                <div>{props.lesson.room}</div>
-                <div>{props.lesson.tutor}</div>
-                <div>{props.lesson.week}</div>
+                <div>{lesson.type}</div>
+                <div>{lesson.name}</div>
+                <div>{lesson.room}</div>
+                <div>{lesson.tutor}</div>
+                <div>{lesson.week}</div>
             </div>
-            <DeleteButton remove = {props.remove} lesson = {props.lesson}/>
+            <DeleteButton remove = {remove} lesson = {lesson}/>
         </div>
     );
 };

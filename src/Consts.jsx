@@ -6,3 +6,4 @@ export const firstTime = "9:00"
 export const firstDay = "пн"
 export const firstType = "лек"
 export const firstWeek = "нечетная"
+export const empty = ''

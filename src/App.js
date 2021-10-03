@@ -51,7 +51,7 @@ function App() {
     }
 
     const addLesson = (lesson) => {
-        setLesson([...lessons,lesson])
+        setLesson([...lessons, lesson])
     }
 
     const removeLesson = (lesson) => {

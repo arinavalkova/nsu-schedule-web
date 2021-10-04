@@ -1,7 +1,7 @@
 .block {
     font-size: 11px;
     display: inline-flex;
-    border-top: 3px solid saddlebrown;
+    border-top: 2px solid black;
 }
 
 .block:first-child {
@@ -15,7 +15,8 @@
 .block button {
     width: 20px;
     height: 20px;
-    border-radius: 15px;
+    border-radius: 10px;
+    font-weight: bold;
 }
 
 .cell {
@@ -26,30 +27,32 @@
 }
 
 .scheduleTable {
-    border: 3px solid saddlebrown;
+    border: 2px solid black;
     font-size: 11px;
 }
 
 .scheduleTable td {
-    border: 3px solid saddlebrown;
+    border: 2px solid black;
     vertical-align: top;
 }
 
 .scheduleTable th {
     padding: 2px;
-    border: 3px solid saddlebrown;
+    border: 2px solid black;
+    color: black;
 }
 
-button {
-    background: navajowhite;
+select, input, button {
+    color: black;
+    font-weight: bold;
+    border: 2px solid black;
+    border-radius: 10px;
 }
 
 .app {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 50px;
 }
 
 .appContent {
-    display: inline-grid;
+    margin: 10px;
 }

@@ -1,8 +1,10 @@
 import './styles/App.css';
 import ScheduleTable from "./components/ScheduleTable";
-import {useState} from "react";
+import React, {useState} from "react";
 import AddLessonModal from "./components/AddLessonModal";
 import AddLessonForm from "./components/AddLessonForm";
+import {times} from "./Consts";
+import Select from "./components/Select";
 
 function App() {
 
@@ -50,6 +52,12 @@ function App() {
         week: "четная"
     }
 
+    const groups = ["18206", "18208", "18209"]
+
+    const request = (group) => {
+        alert(group)
+    }
+
     const addLesson = (lesson) => {
         setLesson([...lessons, lesson])
     }
@@ -63,11 +71,17 @@ function App() {
 
     return (
         <div className="app">
-            <div className={"appContent"}>
+            <div className="appContent">
+                <Select onChange={(e) => request(e.target.value)}
+                        defaultText={"Выберите группу"} listOfContent={groups} listOfValues={groups}/>
+            </div>
+            <div className="appContent">
                 <AddLessonModal visible={addLessonForm} setVisible={setAddLessonForm}>
                     <AddLessonForm addLesson={addLesson} setVisible={setAddLessonForm}/>
                 </AddLessonModal>
                 <ScheduleTable remove={removeLesson} lessons={lessons}/>
+            </div>
+            <div className="appContent">
                 <button onClick={() => setAddLessonForm(true)}>Создать новую пару</button>
             </div>
         </div>

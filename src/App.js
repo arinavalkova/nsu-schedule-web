@@ -17,6 +17,7 @@ function App() {
     }
 
     useEffect(() => {
+        axios.defaults.withCredentials = true
         getGroups()
     }, [])
 

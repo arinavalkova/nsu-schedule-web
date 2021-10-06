@@ -5,7 +5,7 @@ const Cell = ({lessons, remove}) => {
     return (
         <div className="cell">
             {lessons.map(lesson =>
-                <Lesson remove = {remove} lesson={lesson} key={lesson.id}/>
+                <Lesson remove={remove} lesson={lesson} key={lesson.id}/>
             )}
         </div>
     );

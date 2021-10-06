@@ -1,13 +1,18 @@
 import React from 'react';
 import Cell from "./Cell";
-import {days, times} from "../Consts"
+import {times, lessonNums, dayNums} from "../Consts"
 
 const ScheduleTable = ({lessons, remove}) => {
 
     const headersNames = ["Время", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"]
 
-    function getLessonsForThisTimeAndDay(day, time) {
-        return lessons.filter(lesson => lesson.day === day && lesson.time === time)
+    function getLessonsForThisTimeAndDay(dayNum, lessonNum) {
+        if (lessons == null) {
+            return []
+        }
+        return lessons
+            .find(lesson => lesson.dayNum === dayNum).subjects
+            .filter(subject => subject.lessonNum === lessonNum)
     }
 
     return (
@@ -18,11 +23,16 @@ const ScheduleTable = ({lessons, remove}) => {
                         <th>{header}</th>
                     )}
                 </tr>
-                {times.map(time =>
+                {lessonNums.map(lessonNum =>
                     <tr>
-                        <td className="times">{time}</td>
-                        {days.map(day =>
-                            <td><Cell remove={remove} lessons={getLessonsForThisTimeAndDay(day, time)}/></td>
+                        <td className="times">{times[lessonNum - 1]}</td>
+                        {dayNums.map(dayNum =>
+                            <td><Cell remove={remove}
+                                      lessons={getLessonsForThisTimeAndDay(dayNum, lessonNum).map(lesson => {
+                                          lesson.dayNum = dayNum
+                                          return lesson
+                                      })}/>
+                            </td>
                         )}
                     </tr>
                 )}

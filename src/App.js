@@ -7,51 +7,6 @@ import Select from "./components/Select";
 import axios from "axios";
 
 function App() {
-
-    const firstLesson = {
-        id: 1,
-        time: "9:00",
-        day: "пн",
-        type: "лек",
-        name: "ОП Java-программ",
-        room: "1133",
-        tutor: "Адаманский А.В.",
-        week: "Нечетная"
-    }
-
-    const secondLesson = {
-        id: 2,
-        time: "18:10",
-        day: "сб",
-        type: "лек",
-        name: "Раз.прил.Android",
-        room: "1133",
-        tutor: "Степанов П.А.",
-        week: "четная"
-    }
-
-    const thirdLesson = {
-        id: 3,
-        time: "18:10",
-        day: "сб",
-        type: "сем",
-        name: "ОП Java-программ",
-        room: "1133",
-        tutor: "Адаманский А.В.",
-        week: "Нечетная"
-    }
-
-    const fourthLesson = {
-        id: 4,
-        time: "16:20",
-        day: "ср",
-        type: "сем",
-        name: "Раз.прил.Android",
-        room: "4133",
-        tutor: "Степанов П.А.",
-        week: "четная"
-    }
-
     const [groups, setGroups] = useState([])
     const [currentGroup, setCurrentGroup] = useState()
 
@@ -73,25 +28,24 @@ function App() {
 
     const setNewGroup = async (group) => {
         setCurrentGroup(group)
-        const response = await axios.post("http://localhost:8080/api/table/{" + group + "}", {
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'GET, PUT, POST, DELETE, OPTIONS'
-            }
-        })
-        console.log(response.data)
-        //setLessons with fetching request for current group
+        const response = await axios.post('http://localhost:8080/api/table',
+            {groupNum: group}
+        )
+        console.log(response.data.table)
+        setLessons(response.data.table)
     }
 
     const addLesson = (lesson) => {
-        setLesson([...lessons, lesson])
+        setLessons([...lessons, lesson])
     }
 
-    const removeLesson = (lesson) => {
-        setLesson(lessons.filter(l => l.id !== lesson.id))
+    const removeLesson = async (lesson) => {
+        //setLessons(lessons.filter(l => l.id !== lesson.id))
+        await axios.delete("http://localhost:8080/api/table", {data: lesson})
+        setLessons((await axios.get("http://localhost:8080/api/table")).data.table)
     }
 
-    const [lessons, setLesson] = useState([firstLesson, secondLesson, thirdLesson, fourthLesson])
+    const [lessons, setLessons] = useState()
     const [addLessonForm, setAddLessonForm] = useState(false)
 
     return (

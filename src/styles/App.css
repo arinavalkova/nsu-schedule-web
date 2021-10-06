@@ -45,6 +45,7 @@
 
 select, input, button {
     color: black;
+    background: white;
     font-weight: bold;
     border: 2px solid black;
     border-radius: 10px;

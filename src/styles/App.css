@@ -2,6 +2,7 @@
     font-size: 11px;
     display: inline-flex;
     border-top: 2px solid black;
+    padding: 3px;
 }
 
 .block:first-child {

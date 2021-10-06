@@ -35,12 +35,13 @@ function App() {
         setLessons(response.data.table)
     }
 
-    const addLesson = (lesson) => {
-        setLessons([...lessons, lesson])
+    const addLesson = async (lesson) => {
+        //setLessons([...lessons, lesson])
+        await axios.put("http://localhost:8080/api/table", {dayNum: lesson.dayNum, subject: lesson})
+        setLessons((await axios.get("http://localhost:8080/api/table")).data.table)
     }
 
     const removeLesson = async (lesson) => {
-        //setLessons(lessons.filter(l => l.id !== lesson.id))
         await axios.delete("http://localhost:8080/api/table", {data: lesson})
         setLessons((await axios.get("http://localhost:8080/api/table")).data.table)
     }

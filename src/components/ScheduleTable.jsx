@@ -28,10 +28,13 @@ const ScheduleTable = ({lessons, remove}) => {
                         <td className="times">{times[lessonNum - 1]}</td>
                         {dayNums.map(dayNum =>
                             <td><Cell remove={remove}
-                                      lessons={getLessonsForThisTimeAndDay(dayNum, lessonNum).map(lesson => {
-                                          lesson.dayNum = dayNum
-                                          return lesson
-                                      })}/>
+                                      lessons={getLessonsForThisTimeAndDay(dayNum, lessonNum).map(lesson =>
+                                          {return {...lesson, dayNum: dayNum}}
+                                      // {
+                                      //     lesson.dayNum = dayNum
+                                      //     return lesson
+                                      // }
+                                      )}/>
                             </td>
                         )}
                     </tr>

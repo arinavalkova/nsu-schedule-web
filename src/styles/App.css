@@ -29,6 +29,7 @@
 .scheduleTable {
     border: 2px solid black;
     font-size: 11px;
+    border-collapse: collapse;
 }
 
 .scheduleTable td {
@@ -55,4 +56,8 @@ select, input, button {
 
 .appContent {
     margin: 10px;
+}
+
+.times {
+    font-weight: bold;
 }

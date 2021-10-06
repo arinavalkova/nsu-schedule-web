@@ -36,7 +36,6 @@ function App() {
     }
 
     const addLesson = async (lesson) => {
-        //setLessons([...lessons, lesson])
         await axios.put("http://localhost:8080/api/table", {dayNum: lesson.dayNum, subject: lesson})
         setLessons((await axios.get("http://localhost:8080/api/table")).data.table)
     }

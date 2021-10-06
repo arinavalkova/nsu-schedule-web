@@ -7,4 +7,5 @@ export const firstLesson = "1"
 export const firstDay = "1"
 export const firstType = "лек"
 export const firstWeek = "нечетная"
-export const empty = ''
+export const empty = ""
+export const nullLine = "null"

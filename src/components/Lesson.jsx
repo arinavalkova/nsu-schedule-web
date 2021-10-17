@@ -2,8 +2,16 @@ import React from 'react';
 import DeleteButton from "./DeleteButton";
 
 const Lesson = ({lesson, remove}) => {
+
+    const click = (target) => {
+        alert(target.className)
+        if (target === "[object HTMLDivElement]") {
+            alert("click")
+        }
+    }
+
     return (
-        <div className="block">
+        <div className="block" onClick={(event => click(event.target))}>
             <div className="lesson">
                 <div>{lesson.type}</div>
                 <div>{lesson.name}</div>

@@ -1,70 +1,18 @@
-import './styles/App.css';
-import ScheduleTable from "./components/ScheduleTable";
-import React, {useEffect, useState} from "react";
-import AddLessonModal from "./components/AddLessonModal";
-import AddLessonForm from "./components/AddLessonForm";
-import Select from "./components/Select";
-import axios from "axios";
+import React, {useState} from "react";
+import {BrowserRouter} from "react-router-dom";
+import ApplicationRouter from "./router/ApplicationRouter";
+import {AuthContext} from "./context";
 
 function App() {
-    const [groups, setGroups] = useState([])
-    const [currentGroup, setCurrentGroup] = useState()
 
-    const getGroups = async () => {
-        const response = await axios.get("http://localhost:8080/api/group_num_list")
-        setGroups(response.data)
-        setCurrentGroup(response.data[0])
-    }
-
-    useEffect(() => {
-        axios.defaults.withCredentials = true
-        getGroups()
-    }, [])
-
-    useEffect(() => {
-        if (currentGroup != null) {
-            setNewGroup(currentGroup)
-        }
-    }, [currentGroup])
-
-    const setNewGroup = async (group) => {
-        setCurrentGroup(group)
-        const response = await axios.post('http://localhost:8080/api/table',
-            {groupNum: group}
-        )
-        console.log(response.data.table)
-        setLessons(response.data.table)
-    }
-
-    const addLesson = async (lesson) => {
-        await axios.put("http://localhost:8080/api/table", {dayNum: lesson.dayNum, subject: lesson})
-        setLessons((await axios.get("http://localhost:8080/api/table")).data.table)
-    }
-
-    const removeLesson = async (lesson) => {
-        await axios.delete("http://localhost:8080/api/table", {data: lesson})
-        setLessons((await axios.get("http://localhost:8080/api/table")).data.table)
-    }
-
-    const [lessons, setLessons] = useState()
-    const [addLessonForm, setAddLessonForm] = useState(false)
+    const [isAuth, setIsAuth] = useState("")
 
     return (
-        <div className="app">
-            <div className="appContent">
-                <Select onChange={(e) => setNewGroup(e.target.value)}
-                        defaultText={"Выберите группу"} listOfContent={groups} listOfValues={groups}/>
-            </div>
-            <div className="appContent">
-                <AddLessonModal visible={addLessonForm} setVisible={setAddLessonForm}>
-                    <AddLessonForm addLesson={addLesson} setVisible={setAddLessonForm}/>
-                </AddLessonModal>
-                <ScheduleTable remove={removeLesson} lessons={lessons}/>
-            </div>
-            <div className="appContent">
-                <button onClick={() => setAddLessonForm(true)}>Создать новую пару</button>
-            </div>
-        </div>
+        <AuthContext.Provider value={[isAuth, setIsAuth]}>
+            <BrowserRouter>
+                <ApplicationRouter/>
+            </BrowserRouter>
+        </AuthContext.Provider>
     );
 }
 

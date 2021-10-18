@@ -52,7 +52,7 @@ function MainPage() {
 
     const [lessons, setLessons] = useState()
     const [addLessonForm, setAddLessonForm] = useState(false)
-    console.log("selected " + currentGroup)
+
     return (
         <div className="app">
             <h1>{isAuth}</h1>

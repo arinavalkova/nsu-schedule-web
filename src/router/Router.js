@@ -9,6 +9,6 @@ export const publicRoutes = [
 ]
 
 export const privateRoutes = [
-    {path: '/edit', component: EditPage, exact: true},
     {path: '/main', component: MainPage, exact: true},
+    {path: '/edit', component: EditPage, exact: true},
 ]

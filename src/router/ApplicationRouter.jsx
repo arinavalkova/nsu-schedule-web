@@ -4,7 +4,7 @@ import {privateRoutes, publicRoutes} from "./Router";
 import {AuthContext} from "../context";
 
 const ApplicationRouter = () => {
-    const {isAuth} = useContext(AuthContext)
+    const {isAuth, setIsAuth} = useContext(AuthContext)
     return (
         isAuth ?
             <Switch>
@@ -13,16 +13,10 @@ const ApplicationRouter = () => {
                         component={route.component}
                         path={route.path}
                         exact={route.exact}
+                        key={route.path}
                     />
                 )}
-                {publicRoutes.map(route =>
-                    <Route
-                        component={route.component}
-                        path={route.path}
-                        exact={route.exact}
-                    />
-                )}
-                <Redirect to='/error'/>
+                <Redirect to='/main'/>
             </Switch>
             :
             <Switch>
@@ -31,9 +25,10 @@ const ApplicationRouter = () => {
                         component={route.component}
                         path={route.path}
                         exact={route.exact}
+                        key={route.path}
                     />
                 )}
-                <Redirect to='/error'/>
+                <Redirect to='/auth'/>
             </Switch>
     );
 };

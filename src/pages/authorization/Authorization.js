@@ -4,7 +4,7 @@ import {AuthContext} from "../../context";
 
 const Authorization = () => {
 
-    const  [setIsAuth] = useContext(AuthContext)
+    const  {isAuth, setIsAuth} = useContext(AuthContext)
     const [schedule, setSchedule] = useState("")
 
     const login = event => {
@@ -16,11 +16,11 @@ const Authorization = () => {
         <div className="parent">
             <div className="authForm">
                 <h1 className="child">Авторизация</h1>
-                <form>
+                <form onSubmit={login}>
                     <input className="child" type="text" placeholder="Введите ФИО"/>
                     <input value={schedule} onChange={(e) => setSchedule(e.target.value)}
                            className="child" type="text" placeholder="Введите группу"/>
-                    <button className="child" onClick={login}>Авторизоваться</button>
+                    <button className="child">Авторизоваться</button>
                 </form>
             </div>
         </div>

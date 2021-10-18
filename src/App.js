@@ -8,7 +8,7 @@ function App() {
     const [isAuth, setIsAuth] = useState("")
 
     return (
-        <AuthContext.Provider value={[isAuth, setIsAuth]}>
+        <AuthContext.Provider value={{isAuth, setIsAuth}}>
             <BrowserRouter>
                 <ApplicationRouter/>
             </BrowserRouter>

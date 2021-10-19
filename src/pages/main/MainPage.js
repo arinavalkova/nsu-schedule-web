@@ -3,8 +3,8 @@ import React, {useContext, useEffect, useState} from "react";
 import {getGroupsFromServer} from "../../ServerApi";
 import axios from "axios";
 import Select from "../../components/Select";
-import AddLessonModal from "../../components/form/AddLessonModal";
-import AddLessonForm from "../../components/form/AddLessonForm";
+import Modal from "../../components/form/Modal";
+import AddLessonForm from "../../components/form/add/AddLessonForm";
 import ScheduleTable from "../../components/table/ScheduleTable";
 import {AuthContext} from "../../context";
 import Cell from "../../components/cell/Cell";
@@ -58,6 +58,12 @@ function MainPage() {
     const [lessons, setLessons] = useState()
     const [addLessonForm, setAddLessonForm] = useState(false)
 
+    const logout = () => {
+        setIsAuth('')
+        localStorage.setItem('auth', '')
+        router.push('/auth')
+    }
+
     return (
         <div className="main">
             <div>
@@ -65,13 +71,13 @@ function MainPage() {
                 {/*    <Select onChange={(e) => setNewGroup(e.target.value)}*/}
                 {/*            defaultText={"Выберите группу"} listOfContent={groups} listOfValues={groups} selected={currentGroup}/>*/}
                 {/*</div>*/}
-                <button onClick={() => router.push('/auth')}>Выйти</button>
+                <button onClick={logout}>Выйти</button>
                 <button className="editButton" onClick={() => router.push('/edit')}>Изменить</button>
-                <h1>{isAuth}</h1>
+                <h1 className="mainHeader">{isAuth}</h1>
                 <div className="appContent">
-                    {/*<AddLessonModal visible={addLessonForm} setVisible={setAddLessonForm}>*/}
-                    {/*    <AddLessonForm addLesson={addLesson} setVisible={setAddLessonForm}/>*/}
-                    {/*</AddLessonModal>*/}
+                    <Modal visible={addLessonForm} setVisible={setAddLessonForm}>
+                        <AddLessonForm addLesson={addLesson} setVisible={setAddLessonForm}/>
+                    </Modal>
                     <ScheduleTable remove={removeLesson} lessons={lessons}/>
                 </div>
                 {/*<div className="appContent">*/}

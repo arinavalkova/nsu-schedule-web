@@ -50,6 +50,7 @@ select, input, button {
     font-weight: bold;
     border: 2px solid black;
     border-radius: 10px;
+    padding: 5px;
 }
 
 .main {
@@ -69,4 +70,12 @@ select, input, button {
 
 .editButton {
     float: right;
+}
+
+.mainHeader {
+    text-align: center;
+}
+
+.lessonEnter {
+    background: orange;
 }

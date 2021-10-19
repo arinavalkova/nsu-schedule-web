@@ -7,6 +7,8 @@ import {AuthContext} from "../../context";
 import ScheduleTableWithClicks from "../../components/table/ScheduleTableWithClicks";
 import ScheduleTableWithButtons from "../../components/table/ScheduleTableWithButtons";
 import {useHistory} from "react-router-dom";
+import Modal from "../../components/form/Modal";
+import AddLessonForm from "../../components/form/add/AddLessonForm";
 
 function EditPage() {
     const router = useHistory()
@@ -53,7 +55,6 @@ function EditPage() {
     }
 
     const [lessons, setLessons] = useState()
-    const [addLessonForm, setAddLessonForm] = useState(false)
 
     return (
         <div className="main">
@@ -62,13 +63,13 @@ function EditPage() {
                 {/*    <Select onChange={(e) => setNewGroup(e.target.value)}*/}
                 {/*            defaultText={"Выберите группу"} listOfContent={groups} listOfValues={groups} selected={currentGroup}/>*/}
                 {/*</div>*/}
-                <button className="editButton" onClick={() => router.push('/main')}>Сохранить</button>
+                <button className="editButton" onClick={() => router.push('/main')}>Назад</button>
                 <h1>Редактирование:</h1>
                 <div className="appContent">
-                    {/*<AddLessonModal visible={addLessonForm} setVisible={setAddLessonForm}>*/}
+                    {/*<Modal visible={addLessonForm} setVisible={setAddLessonForm}>*/}
                     {/*    <AddLessonForm addLesson={addLesson} setVisible={setAddLessonForm}/>*/}
-                    {/*</AddLessonModal>*/}
-                    <ScheduleTableWithButtons remove={removeLesson} lessons={lessons}/>
+                    {/*</Modal>*/}
+                    <ScheduleTableWithClicks remove={removeLesson} lessons={lessons}/>
                 </div>
                 {/*<div className="appContent">*/}
                 {/*    <button onClick={() => setAddLessonForm(true)}>Создать новую пару</button>*/}

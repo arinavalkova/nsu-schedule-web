@@ -8,8 +8,6 @@ function App() {
     const [isAuth, setIsAuth] = useState("")
 
     useEffect(() => {
-        //localStorage.setItem('auth', '')
-        console.log(localStorage.getItem('auth'))
         setIsAuth(localStorage.getItem('auth'))
     }, [])
 

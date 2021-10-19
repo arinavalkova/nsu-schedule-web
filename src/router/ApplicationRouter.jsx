@@ -5,6 +5,7 @@ import {AuthContext} from "../context";
 
 const ApplicationRouter = () => {
     const {isAuth, setIsAuth} = useContext(AuthContext)
+
     return (
         isAuth ?
             <Switch>

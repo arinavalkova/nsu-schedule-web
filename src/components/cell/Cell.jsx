@@ -2,6 +2,7 @@ import React from 'react';
 import Lesson from "../lesson/Lesson";
 
 const Cell = ({lessons, remove}) => {
+
     return (
         <div className="cell">
             {lessons.map(lesson =>

@@ -1,16 +1,20 @@
 import React from 'react';
-import cl from './AddLessonModal.module.css'
+import cl from './add/AddLessonModal.module.css'
 
-const AddLessonModal = ({children, visible, setVisible}) => {
+const Modal = ({children, visible, setVisible}) => {
 
     const rootClasses = [cl.addLessonForm]
 
-    if (visible){
+    if (visible) {
         rootClasses.push(cl.active)
     }
 
+    const onClick = () => {
+        setVisible(false)
+    }
+
     return (
-        <div className={rootClasses.join(' ')} onClick={() => setVisible(false)}>
+        <div className={rootClasses.join(' ')} onClick={onClick}>
             <div className={cl.addLessonFormContent} onClick={(e) => e.stopPropagation()}>
                 {children}
             </div>
@@ -18,4 +22,4 @@ const AddLessonModal = ({children, visible, setVisible}) => {
     );
 };
 
-export default AddLessonModal;
+export default Modal;

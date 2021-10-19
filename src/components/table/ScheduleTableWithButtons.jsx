@@ -1,8 +1,9 @@
 import React from 'react';
-import Cell from "./Cell";
-import {times, lessonNums, dayNums} from "../Consts"
+import {times, lessonNums, dayNums} from "../../Consts"
+import CellWithClicks from "../cell/CellWithClicks";
+import CellWithButtons from "../cell/CellWithButtons";
 
-const ScheduleTable = ({lessons, remove}) => {
+const ScheduleTableWithButtons = ({lessons, remove}) => {
 
     const headersNames = ["Время", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"]
 
@@ -27,14 +28,11 @@ const ScheduleTable = ({lessons, remove}) => {
                     <tr>
                         <td className="times">{times[lessonNum - 1]}</td>
                         {dayNums.map(dayNum =>
-                            <td><Cell remove={remove}
-                                      lessons={getLessonsForThisTimeAndDay(dayNum, lessonNum).map(lesson =>
-                                          {return {...lesson, dayNum: dayNum}}
-                                      // {
-                                      //     lesson.dayNum = dayNum
-                                      //     return lesson
-                                      // }
-                                      )}/>
+                            <td><CellWithButtons remove={remove}
+                                                 lessons={getLessonsForThisTimeAndDay(dayNum, lessonNum).map(lesson => {
+                                                         return {...lesson, dayNum: dayNum}
+                                                     }
+                                                 )}/>
                             </td>
                         )}
                     </tr>
@@ -44,4 +42,4 @@ const ScheduleTable = ({lessons, remove}) => {
     );
 };
 
-export default ScheduleTable;
+export default ScheduleTableWithButtons;

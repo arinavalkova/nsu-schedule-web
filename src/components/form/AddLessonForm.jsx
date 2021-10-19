@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import {times, days, lessonNums, dayNums, nullLine} from "../Consts";
-import {firstDay, firstLesson, firstType, firstWeek, empty} from "../Consts";
-import cl from '../styles/AddLessonModal.module.css'
-import Select from "./Select";
+import {times, days, lessonNums, dayNums, nullLine} from "../../Consts";
+import {firstDay, firstLesson, firstType, firstWeek, empty} from "../../Consts";
+import cl from './AddLessonModal.module.css'
+import Select from "../Select";
 
 const AddLessonForm = ({addLesson, setVisible}) => {
 

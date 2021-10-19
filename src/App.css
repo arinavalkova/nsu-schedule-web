@@ -52,8 +52,11 @@ select, input, button {
     border-radius: 10px;
 }
 
-.app {
+.main {
     padding: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .appContent {
@@ -62,4 +65,8 @@ select, input, button {
 
 .times {
     font-weight: bold;
+}
+
+.editButton {
+    float: right;
 }

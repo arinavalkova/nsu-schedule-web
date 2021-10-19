@@ -1,7 +1,7 @@
 import React from 'react';
-import DeleteButton from "./DeleteButton";
+import DeleteButton from "../DeleteButton";
 
-const Lesson = ({lesson, remove}) => {
+const LessonWithClick = ({lesson, remove}) => {
 
     const click = (target) => {
         alert(target.className)
@@ -19,9 +19,8 @@ const Lesson = ({lesson, remove}) => {
                 <div>{lesson.teacher}</div>
                 <div>{lesson.odd? lesson.odd: ""}</div>
             </div>
-            <DeleteButton remove = {remove} lesson = {lesson}/>
         </div>
     );
 };
 
-export default Lesson;
+export default LessonWithClick;

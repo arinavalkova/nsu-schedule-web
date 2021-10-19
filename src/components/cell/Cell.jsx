@@ -1,5 +1,5 @@
 import React from 'react';
-import Lesson from "./Lesson";
+import Lesson from "../lesson/Lesson";
 
 const Cell = ({lessons, remove}) => {
     return (

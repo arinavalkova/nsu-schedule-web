@@ -1,5 +1,5 @@
 import React from 'react';
-import cl from '../styles/AddLessonModal.module.css'
+import cl from './AddLessonModal.module.css'
 
 const AddLessonModal = ({children, visible, setVisible}) => {
 

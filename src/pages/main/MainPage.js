@@ -78,7 +78,7 @@ function MainPage() {
                     <Modal visible={addLessonForm} setVisible={setAddLessonForm}>
                         <AddLessonForm addLesson={addLesson} setVisible={setAddLessonForm}/>
                     </Modal>
-                    <ScheduleTable remove={removeLesson} lessons={lessons}/>
+                    <ScheduleTable remove={removeLesson} lessons={lessons} Cel={Cell}/>
                 </div>
                 {/*<div className="appContent">*/}
                 {/*    <button onClick={() => setAddLessonForm(true)}>Создать новую пару</button>*/}

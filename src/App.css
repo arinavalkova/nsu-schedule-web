@@ -3,6 +3,7 @@
     display: inline-flex;
     border-top: 2px solid black;
     padding: 3px;
+    min-height: 60px;
 }
 
 .block:first-child {
@@ -13,18 +14,22 @@
     width: 100px;
 }
 
-.block button {
-    width: 20px;
-    height: 20px;
-    border-radius: 10px;
-    font-weight: bold;
+/*.block button {*/
+/*    width: 20px;*/
+/*    height: 20px;*/
+/*    border-radius: 10px;*/
+/*    font-weight: bold;*/
+/*}*/
+
+.deleteFormButton {
+    margin: 10px;
 }
 
 .cell {
     display: inline-flex;
     flex-direction: column;
     min-width: 120px;
-    min-height: 80px;
+    min-height: 60px;
 }
 
 .scheduleTable {

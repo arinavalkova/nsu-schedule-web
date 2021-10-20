@@ -10,6 +10,7 @@ const Modal = ({children, visible, setVisible}) => {
     }
 
     const onClick = () => {
+        console.log("CLICKED")
         setVisible(false)
     }
 

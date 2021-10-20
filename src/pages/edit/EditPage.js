@@ -9,6 +9,7 @@ import ScheduleTableWithButtons from "../../components/table/ScheduleTableWithBu
 import {useHistory} from "react-router-dom";
 import Modal from "../../components/form/Modal";
 import AddLessonForm from "../../components/form/add/AddLessonForm";
+import CellWithClicks from "../../components/cell/CellWithClicks";
 
 function EditPage() {
     const router = useHistory()
@@ -69,7 +70,7 @@ function EditPage() {
                     {/*<Modal visible={addLessonForm} setVisible={setAddLessonForm}>*/}
                     {/*    <AddLessonForm addLesson={addLesson} setVisible={setAddLessonForm}/>*/}
                     {/*</Modal>*/}
-                    <ScheduleTableWithClicks remove={removeLesson} lessons={lessons}/>
+                    <ScheduleTable remove={removeLesson} lessons={lessons} Cel={CellWithClicks}/>
                 </div>
                 {/*<div className="appContent">*/}
                 {/*    <button onClick={() => setAddLessonForm(true)}>Создать новую пару</button>*/}

@@ -2,7 +2,7 @@ import React from 'react';
 import {times, lessonNums, dayNums} from "../../Consts"
 import CellWithClicks from "../cell/CellWithClicks";
 
-const ScheduleTableWithClicks = ({lessons, remove}) => {
+const ScheduleTableWithClicks = ({lessons, remove, Cel}) => {
 
     const headersNames = ["Время", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"]
 
@@ -27,7 +27,7 @@ const ScheduleTableWithClicks = ({lessons, remove}) => {
                     <tr>
                         <td className="times">{times[lessonNum - 1]}</td>
                         {dayNums.map(dayNum =>
-                            <td><CellWithClicks remove={remove}
+                            <td><Cel remove={remove}
                                       lessons={getLessonsForThisTimeAndDay(dayNum, lessonNum).map(lesson => {
                                               return {...lesson, dayNum: dayNum}
                                           }

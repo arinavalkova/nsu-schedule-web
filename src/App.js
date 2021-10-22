@@ -1,22 +1,22 @@
 import React, {useEffect, useState} from "react";
 import {BrowserRouter} from "react-router-dom";
 import ApplicationRouter from "./router/ApplicationRouter";
-import {AuthContext} from "./context";
+import {GroupContext} from "./context";
 
 function App() {
 
-    const [isAuth, setIsAuth] = useState("")
+    const [group, setGroup] = useState("")
 
     useEffect(() => {
-        setIsAuth(localStorage.getItem('auth'))
+        setGroup(localStorage.getItem('auth'))
     }, [])
 
     return (
-        <AuthContext.Provider value={{isAuth, setIsAuth}}>
+        <GroupContext.Provider value={{group, setGroup}}>
             <BrowserRouter>
                 <ApplicationRouter/>
             </BrowserRouter>
-        </AuthContext.Provider>
+        </GroupContext.Provider>
     );
 }
 

@@ -1,13 +1,14 @@
 import React, {useContext} from 'react';
 import {Redirect, Route, Switch} from "react-router-dom";
 import {privateRoutes, publicRoutes} from "./Router";
-import {AuthContext} from "../context";
+import {GroupContext} from "../context";
+import {AuthPath, MainPath} from "../Consts";
 
 const ApplicationRouter = () => {
-    const {isAuth, setIsAuth} = useContext(AuthContext)
+    const {group, setGroup} = useContext(GroupContext)
 
     return (
-        isAuth ?
+        group ?
             <Switch>
                 {privateRoutes.map(route =>
                     <Route
@@ -17,7 +18,7 @@ const ApplicationRouter = () => {
                         key={route.path}
                     />
                 )}
-                <Redirect to='/main'/>
+                <Redirect to={MainPath}/>
             </Switch>
             :
             <Switch>
@@ -29,7 +30,7 @@ const ApplicationRouter = () => {
                         key={route.path}
                     />
                 )}
-                <Redirect to='/auth'/>
+                <Redirect to={AuthPath}/>
             </Switch>
     );
 };

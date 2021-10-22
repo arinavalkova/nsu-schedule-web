@@ -1,5 +1,5 @@
 import React from 'react';
-import cl from './add/AddLessonModal.module.css'
+import cl from './Modal.module.css'
 
 const Modal = ({children, visible, setVisible}) => {
 
@@ -10,7 +10,6 @@ const Modal = ({children, visible, setVisible}) => {
     }
 
     const onClick = () => {
-        console.log("CLICKED")
         setVisible(false)
     }
 

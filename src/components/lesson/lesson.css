@@ -1,0 +1,15 @@
+.lesson {
+    font-size: 11px;
+    display: inline-flex;
+    border-top: 2px solid black;
+    padding: 3px;
+    min-height: 60px;
+}
+
+.lesson:first-child {
+    border-top: none;
+}
+
+.params {
+    width: 100px;
+}

@@ -6,7 +6,7 @@ const Select = ({value, onChange, defaultText, listOfContent, listOfValues}) => 
                 onChange={onChange}>
             <option disabled>{defaultText}</option>
             {listOfContent.map((item, index) =>
-                    <option value={listOfValues[index]} key={item}>{item}</option>
+                <option value={listOfValues[index]} key={item}>{item}</option>
             )}
         </select>
     );

@@ -1,76 +1,57 @@
 import '../../App.css';
 import React, {useContext, useEffect, useState} from "react";
-import {getGroupsFromServer} from "../../ServerApi";
 import axios from "axios";
 import ScheduleTable from "../../components/table/ScheduleTable";
-import {AuthContext} from "../../context";
-import ScheduleTableWithClicks from "../../components/table/ScheduleTableWithClicks";
-import ScheduleTableWithButtons from "../../components/table/ScheduleTableWithButtons";
+import {GroupContext} from "../../context";
 import {useHistory} from "react-router-dom";
-import Modal from "../../components/form/Modal";
-import AddLessonForm from "../../components/form/add/AddLessonForm";
-import CellWithClicks from "../../components/cell/CellWithClicks";
+import Cell from "../../components/cell/Cell";
+import ClickToDeleteLesson from "../../components/lesson/ClickToDeleteLesson";
+import "./editPage.css"
+import {MainPath} from "../../Consts";
+import {
+    addLessonToServer,
+    deleteLessonFromServer,
+    getScheduleFromServer,
+    setAndGetScheduleFromServer
+} from "../../ServerApi";
 
 function EditPage() {
     const router = useHistory()
 
-    const {isAuth, setIsAuth} = useContext(AuthContext)
-
-    const [groups, setGroups] = useState([])
-    const [currentGroup, setCurrentGroup] = useState(isAuth)
-
-    const getGroups = async () => {
-        const response = await getGroupsFromServer()
-        setGroups(response.data)
-        // setCurrentGroup(isAuth)
-    }
+    const {group, setGroup} = useContext(GroupContext)
+    const [lessons, setLessons] = useState()
+    const [currentGroup] = useState(group)
 
     useEffect(() => {
         axios.defaults.withCredentials = true
-        getGroups()
-    }, [])
-
-    useEffect(() => {
-        if (currentGroup != null) {
-            setNewGroup(currentGroup)
-        }
+        setUserSchedule(currentGroup)
     }, [currentGroup])
 
-    const setNewGroup = async (group) => {
-        //setCurrentGroup(group)
-        const response = await axios.post('http://localhost:8080/api/table',
-            {groupNum: group}
-        )
-        console.log(response.data.table)
+    const setUserSchedule = async (group) => {
+        const response = await setAndGetScheduleFromServer(group)
         setLessons(response.data.table)
     }
 
     const addLesson = async (lesson) => {
-        await axios.put("http://localhost:8080/api/table", {dayNum: lesson.dayNum, subject: lesson})
-        setLessons((await axios.get("http://localhost:8080/api/table")).data.table)
+        await addLessonToServer(lesson)
+        setLessons((await getScheduleFromServer()).data.table)
     }
 
     const removeLesson = async (lesson) => {
-        await axios.delete("http://localhost:8080/api/table", {data: lesson})
-        setLessons((await axios.get("http://localhost:8080/api/table")).data.table)
+        await deleteLessonFromServer(lesson)
+        setLessons((await getScheduleFromServer()).data.table)
     }
 
-    const [lessons, setLessons] = useState()
-
     return (
-        <div className="main">
+        <div className="page">
             <div>
-                {/*<div className="appContent">*/}
-                {/*    <Select onChange={(e) => setNewGroup(e.target.value)}*/}
-                {/*            defaultText={"Выберите группу"} listOfContent={groups} listOfValues={groups} selected={currentGroup}/>*/}
-                {/*</div>*/}
-                <button className="editButton" onClick={() => router.push('/main')}>Назад</button>
+                <button className="backButton" onClick={() => router.push(MainPath)}>Назад</button>
                 <h1>Редактирование:</h1>
-                <div className="appContent">
+                <div className="content">
                     {/*<Modal visible={addLessonForm} setVisible={setAddLessonForm}>*/}
                     {/*    <AddLessonForm addLesson={addLesson} setVisible={setAddLessonForm}/>*/}
                     {/*</Modal>*/}
-                    <ScheduleTable remove={removeLesson} lessons={lessons} Cel={CellWithClicks}/>
+                    <ScheduleTable remove={removeLesson} lessons={lessons} CellClass={Cell} LessonClass={ClickToDeleteLesson}/>
                 </div>
                 {/*<div className="appContent">*/}
                 {/*    <button onClick={() => setAddLessonForm(true)}>Создать новую пару</button>*/}

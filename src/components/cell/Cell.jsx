@@ -1,12 +1,12 @@
 import React from 'react';
-import Lesson from "../lesson/Lesson";
+import "./cell.css"
 
-const Cell = ({lessons, remove}) => {
+const Cell = ({lessons, remove, LessonClass}) => {
 
     return (
         <div className="cell">
             {lessons.map(lesson =>
-                <Lesson remove={remove} lesson={lesson} key={lesson.id}/>
+                <LessonClass remove={remove} lesson={lesson} key={lesson.id}/>
             )}
         </div>
     );

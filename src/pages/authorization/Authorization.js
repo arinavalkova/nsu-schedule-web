@@ -1,21 +1,21 @@
 import React, {useContext, useState} from 'react';
 import './authorization.css'
-import {AuthContext} from "../../context";
+import {GroupContext} from "../../context";
 import {getGroupsFromServer} from "../../ServerApi";
 import {useHistory} from "react-router-dom";
+import {MainPath} from "../../Consts";
 
 const Authorization = () => {
 
     const router = useHistory()
 
-    const {isAuth, setIsAuth} = useContext(AuthContext)
-    const [schedule, setSchedule] = useState("")
+    const {group, setGroup} = useContext(GroupContext)
+    const [groupState, setGroupState] = useState("")
 
     async function isScheduleCorrect() {
         const response = await getGroupsFromServer()
-        console.log(response.data)
         for (const group of response.data) {
-            if (group == schedule)
+            if (group == groupState)
                 return true
         }
         return false
@@ -23,12 +23,11 @@ const Authorization = () => {
 
     const login = async event => {
         event.preventDefault()
-        if (await isScheduleCorrect()){
-            setIsAuth(schedule)
-            localStorage.setItem('auth', schedule)
-            router.push('/main')
-        }
-        else alert("Некорректные данные!")
+        if (await isScheduleCorrect()) {
+            setGroup(groupState)
+            localStorage.setItem('auth', groupState)
+            router.push(MainPath)
+        } else alert("Некорректные данные!")
     }
 
     return (
@@ -37,7 +36,7 @@ const Authorization = () => {
                 <h1 className="child">Поиск расписания</h1>
                 <form onSubmit={login}>
                     <input className="child" type="text" placeholder="Введите ФИО"/>
-                    <input value={schedule} onChange={(e) => setSchedule(e.target.value)}
+                    <input value={groupState} onChange={(e) => setGroupState(e.target.value)}
                            className="child" type="text" placeholder="Введите группу"/>
                     <button className="child">Confirm</button>
                 </form>

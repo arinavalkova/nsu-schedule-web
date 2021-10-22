@@ -1,0 +1,20 @@
+.scheduleTable {
+    border: 2px solid black;
+    font-size: 11px;
+    border-collapse: collapse;
+}
+
+.scheduleTable td {
+    border: 2px solid black;
+    vertical-align: top;
+}
+
+.scheduleTable th {
+    padding: 2px;
+    border: 2px solid black;
+    color: black;
+}
+
+.times {
+    font-weight: bold;
+}

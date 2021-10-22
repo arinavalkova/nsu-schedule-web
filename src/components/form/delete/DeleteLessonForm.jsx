@@ -1,5 +1,5 @@
 import React from 'react';
-import "./DeleteLessonModal.module.css"
+import "./deleteLessonForm.css"
 
 const DeleteLessonForm = ({lesson, deleteLesson, setVisible}) => {
 

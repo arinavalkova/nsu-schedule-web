@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {times, days, lessonNums, dayNums, nullLine} from "../../../Consts";
 import {firstDay, firstLesson, firstType, firstWeek, empty} from "../../../Consts";
-import cl from './AddLessonModal.module.css'
-import Select from "../../Select";
+import Select from "../Select";
+import "./addLessonForm.css"
 
 const AddLessonForm = ({addLesson, setVisible}) => {
 
@@ -31,7 +31,7 @@ const AddLessonForm = ({addLesson, setVisible}) => {
 
     return (
         <form>
-            <div className={cl.addLesson}>
+            <div className="addLesson">
                 <Select value={lesson.lessonNum} onChange={(e) => setLesson({...lesson, lessonNum: e.target.value})}
                         defaultText={"Выберите время"} listOfContent={times} listOfValues={lessonNums}/>
                 <Select value={lesson.dayNum} onChange={(e) => setLesson({...lesson, dayNum: e.target.value})}

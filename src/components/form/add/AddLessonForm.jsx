@@ -4,7 +4,7 @@ import {firstDay, firstLesson, firstType, firstWeek, empty} from "../../../Const
 import Select from "../Select";
 import "./addLessonForm.css"
 
-const AddLessonForm = ({addLesson, setVisible}) => {
+const AddLessonForm = ({addLesson, setVisible, setMenuVisible}) => {
 
     const initLesson = {
         lessonNum: firstLesson,
@@ -29,6 +29,12 @@ const AddLessonForm = ({addLesson, setVisible}) => {
         }
     }
 
+    const back = (e) => {
+        e.preventDefault()
+        setVisible(false)
+        setMenuVisible(true)
+    }
+
     return (
         <form>
             <div className="addLesson">
@@ -48,7 +54,8 @@ const AddLessonForm = ({addLesson, setVisible}) => {
                 <Select value={lesson.odd} onChange={(e) => setLesson({...lesson, odd: e.target.value})}
                         defaultText={"Выберите частоту"} listOfValues={["Четная", "Нечетная", "null"]}
                         listOfContent={["Четная", "Нечетная", "Каждую неделю"]}/>
-                <button onClick={createLesson}>Создать пару</button>
+                <button className="formButton" onClick={createLesson}>Создать пару</button>
+                <button className="formButton" onClick={back}>Назад</button>
             </div>
         </form>
     );

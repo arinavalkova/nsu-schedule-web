@@ -17,3 +17,7 @@ select, input, button {
 .content {
     margin: 10px;
 }
+
+button:hover {
+    background: #f1f1ee;
+}

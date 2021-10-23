@@ -2,6 +2,14 @@
     float: right;
 }
 
-.header {
+.headerText {
     text-align: center;
+}
+
+.backButton {
+    float: left;
+}
+
+.header {
+    padding-bottom: 10px;
 }

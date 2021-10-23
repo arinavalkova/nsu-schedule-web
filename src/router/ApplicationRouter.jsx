@@ -1,14 +1,16 @@
 import React, {useContext} from 'react';
 import {Redirect, Route, Switch} from "react-router-dom";
 import {privateRoutes, publicRoutes} from "./Router";
-import {GroupContext} from "../context";
+import {AuthContext} from "../context";
 import {AuthPath, MainPath} from "../Consts";
 
 const ApplicationRouter = () => {
-    const {group, setGroup} = useContext(GroupContext)
+    const {name, group} = useContext(AuthContext)
+    const [nameValue, setNameValue] = name;
+    const [groupValue, setGroupValue] = group;
 
     return (
-        group ?
+        groupValue ?
             <Switch>
                 {privateRoutes.map(route =>
                     <Route

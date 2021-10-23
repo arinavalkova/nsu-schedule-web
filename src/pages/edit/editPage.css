@@ -1,3 +1,15 @@
 .backButton {
+    float: left;
+}
+
+.headerText {
+    text-align: center;
+}
+
+.createButton {
     float: right;
+}
+
+.header {
+    padding-bottom: 10px;
 }

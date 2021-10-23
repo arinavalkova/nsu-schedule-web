@@ -5,3 +5,9 @@
 .addLesson input {
     margin-bottom: 7px;
 }
+
+.formButton:last-child{
+    float: left;
+    padding-right: 50px;
+    margin-top: 10px;
+}

@@ -4,8 +4,8 @@ export async function getGroupsFromServer() {
     return await axios.get("http://localhost:8080/api/group_num_list")
 }
 
-export async function setAndGetScheduleFromServer(group) {
-    return await axios.post('http://localhost:8080/api/table', {groupNum: group})
+export async function setAndGetScheduleFromServer(name, group) {
+    return await axios.post('http://localhost:8080/api/table', {name: name, groupNum: group})
 }
 
 export async function getScheduleFromServer() {

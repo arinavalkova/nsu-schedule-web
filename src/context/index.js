@@ -1,3 +1,3 @@
 import {createContext} from "react";
 
-export const GroupContext = createContext(null)
+export const AuthContext = createContext(null)

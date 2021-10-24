@@ -19,3 +19,7 @@ export async function addLessonToServer(lesson) {
 export async function deleteLessonFromServer(lesson) {
     return await axios.delete("http://localhost:8080/api/table", {data: lesson})
 }
+
+export async function getGroupScheduleFromServer(group) {
+    return await axios.get('http://localhost:8080/api/table/' + group)
+}

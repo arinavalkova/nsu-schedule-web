@@ -1,4 +1,4 @@
-.addLessonForm {
+.form {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -8,14 +8,13 @@
     background: rgba(0,0,0,0.5);
 }
 
-.addLessonFormContent {
+.formContent {
     padding: 25px;
     background: white;
     border-radius: 16px;
-    max-width: 200px;
 }
 
-.addLessonForm.active {
+.form.active {
     display: flex;
     justify-content: center;
     align-items: center;

@@ -16,6 +16,7 @@ import {
 import Modal from "../../components/form/modal/Modal";
 import CreateMenuForm from "../../components/form/create/CreateMenuForm";
 import AddLessonForm from "../../components/form/add/AddLessonForm";
+import ChooseGroupForm from "../../components/form/choose/ChooseGroupForm";
 
 function EditPage() {
     const router = useHistory()
@@ -26,7 +27,7 @@ function EditPage() {
 
     const [createMenuForm, setCreateMenuForm] = useState(false)
     const [createNewLessonForm, setCreateNewLessonForm] = useState(false)
-    const [addExistsLessonForm, setAddExistsLessonForm] = useState(false)
+    const [groupForm, setGroupForm] = useState(false)
 
     const [lessons, setLessons] = useState()
     const [currentGroup] = useState(groupValue)
@@ -66,12 +67,15 @@ function EditPage() {
                 <div className="content">
                     <Modal visible={createMenuForm} setVisible={setCreateMenuForm}>
                         <CreateMenuForm setCreateMenuVisible={setCreateMenuForm}
-                                        setAddExistsVisible={setAddExistsLessonForm}
+                                        setGroupForm={setGroupForm}
                                         setCreateNewVisible={setCreateNewLessonForm}/>
                     </Modal>
                     <Modal visible={createNewLessonForm} setVisible={setCreateNewLessonForm}>
                         <AddLessonForm addLesson={addLesson} setVisible={setCreateNewLessonForm}
                                        setMenuVisible={setCreateMenuForm}/>
+                    </Modal>
+                    <Modal visible={groupForm} setVisible={setGroupForm}>
+                        <ChooseGroupForm setVisible={setGroupForm} setMenuVisible={setCreateMenuForm}/>
                     </Modal>
                     <ScheduleTable remove={removeLesson} lessons={lessons} CellClass={Cell}
                                    LessonClass={ClickToDeleteLesson}/>

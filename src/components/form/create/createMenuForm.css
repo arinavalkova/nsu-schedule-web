@@ -3,3 +3,7 @@
     float: left;
     text-align: left;
 }
+
+.block {
+    max-width: 200px;
+}

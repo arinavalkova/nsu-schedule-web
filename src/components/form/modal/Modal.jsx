@@ -3,7 +3,7 @@ import cl from './Modal.module.css'
 
 const Modal = ({children, visible, setVisible}) => {
 
-    const rootClasses = [cl.addLessonForm]
+    const rootClasses = [cl.form]
 
     if (visible) {
         rootClasses.push(cl.active)
@@ -15,7 +15,7 @@ const Modal = ({children, visible, setVisible}) => {
 
     return (
         <div className={rootClasses.join(' ')} onClick={onClick}>
-            <div className={cl.addLessonFormContent} onClick={(e) => e.stopPropagation()}>
+            <div className={cl.formContent} onClick={(e) => e.stopPropagation()}>
                 {children}
             </div>
         </div>

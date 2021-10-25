@@ -1,13 +1,12 @@
 import React from 'react';
 import "./cell.css"
 
-const Cell = ({lessons, remove, LessonClass, add, isWhite, setIsWhite}) => {
+const Cell = ({lessons, remove, LessonClass, add}) => {
 
     return (
         <div className="cell">
             {lessons.map(lesson =>
-                <LessonClass remove={remove} lesson={lesson} key={lesson.id} add={add} isWhite={isWhite}
-                             setIsWhite={setIsWhite}/>
+                <LessonClass remove={remove} lesson={lesson} key={lesson.id} add={add}/>
             )}
         </div>
     );

@@ -2,12 +2,11 @@ import React, {useEffect, useState} from 'react';
 import LessonParams from "./LessonParams";
 import {grey, white} from "../../Consts";
 
-const ClickToAddLesson = ({lesson, add, remove, isWhite, setIsWhite}) => {
+const ClickToAddLesson = ({lesson, add, remove}) => {
 
     let clicked = false;
 
     const click = (event) => {
-        //setEvent(event)
         if (!clicked) {
             event.currentTarget.style.background = grey
             clicked = true

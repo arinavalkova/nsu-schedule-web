@@ -15,21 +15,21 @@ const AddExistsLessonPage = () => {
         const router = useHistory()
 
         const {findGroup} = useContext(AuthContext)
-        const [findGroupValue, setFindGroupValue] = findGroup;
+        const [findGroupValue, setFindGroupValue] = findGroup
+
         const [lessons, setLessons] = useState()
-        const [isWhite, setIsWhite] = useState(false)
 
         const selectedLessons = []
         const userLessons = []
 
         useEffect(() => {
             axios.defaults.withCredentials = true
-            getGroupSchedule()
+            getGroupSchedule(findGroupValue)
             getUserLessons()
         }, [])
 
         const getUserLessons = async () => {
-            const response = await getScheduleFromServer(findGroupValue)
+            const response = await getScheduleFromServer()
             for (let i = 0; i < response.data.table.length; i++) {
                 for (let j = 0; j < response.data.table[i].subjects.length; j++) {
                     userLessons.push(response.data.table[i].subjects[j])
@@ -37,9 +37,10 @@ const AddExistsLessonPage = () => {
             }
         }
 
-        const getGroupSchedule = async () => {
-            const response = await getGroupScheduleFromServer(findGroupValue)
-            setLessons(() => response.data.table)
+        const getGroupSchedule = async (group) => {
+            const response = await getGroupScheduleFromServer(group)
+            setLessons(response.data.table)
+            console.log(response.data.table)
         }
 
         const addLesson = async (lesson) => {
@@ -62,14 +63,6 @@ const AddExistsLessonPage = () => {
             }
         }
 
-        const matchLessons = (firstLesson, secondLesson) => {
-            console.log("FJENFJENJFNJ")
-            console.log(firstLesson.name)
-            console.log(secondLesson.name)
-            if (firstLesson.name === secondLesson.name)
-                return true
-        }
-
         const save = () => {
             let match = false;
             if (selectedLessons.length === 0) {
@@ -87,26 +80,17 @@ const AddExistsLessonPage = () => {
                         addLesson(selectedLessons[selectedLessonKey])
                         alert("Сохранено!")
                         match = false
-                        // console.log(selectedLessons[selectedLessonKey].name)
-                        // const lessonsValue = [lessons]
-                        // for (const lessonsKey in lessonsValue[0]) {
-                        //     for (const subjectKey in lessonsValue[0][lessonsKey].subjects) {
-                        //         if (lessonsValue[0][lessonsKey].subjects[subjectKey].name === selectedLessons[selectedLessonKey].name)
-                        //     }
-                        // }
-                        //setLessons(lessons.filter(lessonKey => lessons[lessonKey].name !== selectedLessons[selectedLessonKey].name))
-                        //  setLessons(prevLessons => (prevLessons.filter((lesson) => lesson.name !== selectedLessons[selectedLessonKey].name)))
-                        // const index = lessonsValue.indexOf(selectedLessons[selectedLessonKey]);
-                        // console.log(selectedLessons[selectedLessonKey])
-                        // if (index > -1) {
-                        //     lessonsValue.splice(index, 1);
-                        // }
-                        //
-                        // setLessons(lessonsValue)
+                        const lessonsValue = JSON.parse(JSON.stringify(lessons))
+                        for (const lessonsKey in lessonsValue) {
+                            for (const subjectKey in lessonsValue[lessonsKey].subjects) {
+                                if (lessonsValue[lessonsKey].subjects[subjectKey].name === selectedLessons[selectedLessonKey].name)
+                                    lessonsValue[lessonsKey].subjects.splice(subjectKey)
+                            }
+                        }
+                        setLessons(lessonsValue)
                     }
                 }
             }
-            //setIsWhite(true)
         }
 
         return (
@@ -117,8 +101,7 @@ const AddExistsLessonPage = () => {
                     </div>
                     <div className="content">
                         <ScheduleTable className="contentValue" lessons={lessons} add={addLessonToList}
-                                       remove={deleteLessonFromList} CellClass={Cell} LessonClass={ClickToAddLesson}
-                                       isWhite={isWhite} setIsWhite={setIsWhite}/>
+                                       remove={deleteLessonFromList} CellClass={Cell} LessonClass={ClickToAddLesson}/>
                         <button className="contentValue" onClick={save}>Сохранить</button>
                         <button className="contentValue" onClick={close}>Закрыть</button>
                     </div>

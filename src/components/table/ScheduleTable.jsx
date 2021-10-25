@@ -2,12 +2,13 @@ import React from 'react';
 import {times, lessonNums, dayNums, tableHeaders} from "../../Consts"
 import "./table.css"
 
-const ScheduleTable = ({lessons, remove, add, CellClass, LessonClass, isWhite, setIsWhite}) => {
+const ScheduleTable = ({lessons, remove, add, CellClass, LessonClass}) => {
 
     function getLessonsForThisTimeAndDay(dayNum, lessonNum) {
         if (lessons == null) {
             return []
         }
+        console.log("REFRESHING TABLE")
         return lessons
             .find(lesson => lesson.dayNum === dayNum).subjects
             .filter(subject => subject.lessonNum === lessonNum)
@@ -18,15 +19,14 @@ const ScheduleTable = ({lessons, remove, add, CellClass, LessonClass, isWhite, s
             <table className="scheduleTable">
                 <tr>
                     {tableHeaders.map(header =>
-                        <th>{header}</th>
+                        <th key={header}>{header}</th>
                     )}
                 </tr>
                 {lessonNums.map(lessonNum =>
                     <tr>
                         <td className="times">{times[lessonNum - 1]}</td>
                         {dayNums.map(dayNum =>
-                            <td><CellClass remove={remove} LessonClass={LessonClass} add={add} isWhite={isWhite}
-                                           setIsWhite={setIsWhite}
+                            <td><CellClass remove={remove} LessonClass={LessonClass} add={add} key={dayNum}
                                            lessons={getLessonsForThisTimeAndDay(dayNum, lessonNum).map(lesson => {
                                                    return {...lesson, dayNum: dayNum}
                                                }

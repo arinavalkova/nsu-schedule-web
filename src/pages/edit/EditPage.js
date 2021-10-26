@@ -40,11 +40,14 @@ function EditPage() {
     const getUserSchedule = async () => {
         const response = await getScheduleFromServer()
         setLessons(response.data.table)
+        console.log(response.data.table)
     }
 
     const addLesson = async (lesson) => {
         await addLessonToServer(lesson)
-        setLessons((await getScheduleFromServer()).data.table)
+        const response = (await getScheduleFromServer()).data.table
+        console.log(response)
+        setLessons(response)
     }
 
     const removeLesson = async (lesson) => {

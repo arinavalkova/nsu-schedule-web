@@ -1,7 +1,7 @@
 import React, {useContext, useState} from 'react';
 import './authorization.css'
 import {AuthContext} from "../../context";
-import {getGroupsFromServer} from "../../ServerApi";
+import {getGroupsFromServer, setAndGetScheduleFromServer} from "../../ServerApi";
 import {useHistory} from "react-router-dom";
 import {MainPath} from "../../Consts";
 
@@ -32,6 +32,7 @@ const Authorization = () => {
             setGroupValue(groupState)
             localStorage.setItem('name', nameValue)
             localStorage.setItem('group', groupValue)
+            await setAndGetScheduleFromServer(nameState, groupState);
             router.push(MainPath)
         } else alert("Некорректные данные!")
     }

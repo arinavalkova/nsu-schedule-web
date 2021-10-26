@@ -8,7 +8,6 @@ const ScheduleTable = ({lessons, remove, add, CellClass, LessonClass}) => {
         if (lessons == null) {
             return []
         }
-        console.log("REFRESHING TABLE")
         return lessons
             .find(lesson => lesson.dayNum === dayNum).subjects
             .filter(subject => subject.lessonNum === lessonNum)

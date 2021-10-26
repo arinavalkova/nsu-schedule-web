@@ -8,7 +8,7 @@ import {useHistory} from "react-router-dom";
 import SimpleLesson from "../../components/lesson/SimpleLesson";
 import {AuthPath, EditPath} from "../../Consts";
 import "./mainPage.css"
-import {setAndGetScheduleFromServer} from "../../ServerApi";
+import {getScheduleFromServer, setAndGetScheduleFromServer} from "../../ServerApi";
 
 function MainPage() {
     const router = useHistory()
@@ -25,7 +25,7 @@ function MainPage() {
     }, [groupValue, nameValue])
 
     const setUserSchedule = async (name, group) => {
-        const response = await setAndGetScheduleFromServer(name, group)
+        const response = await getScheduleFromServer()
         console.log(response.data)
         setLessons(response.data.table)
     }

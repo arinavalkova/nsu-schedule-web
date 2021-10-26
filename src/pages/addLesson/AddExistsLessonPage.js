@@ -84,8 +84,6 @@ const AddExistsLessonPage = () => {
                             alert("Невозможно добавить! " + selectedLessons[selectedLessonKey].name +
                                 " " + selectedLessons[selectedLessonKey].type + " уже есть в вашем расписании")
                             let next = false
-                            // for (const selectedLessonKey in selectedLessons) {
-                            //     next = false
                             for (const lessonsKey in lessonsValue) {
                                 for (const subjectKey in lessonsValue[lessonsKey].subjects) {
                                     if (matchLessons({
@@ -100,7 +98,6 @@ const AddExistsLessonPage = () => {
                                 if (next) break
                             }
                         }
-                        break
                     }
                     if (!match) {
                         addLesson(selectedLessons[selectedLessonKey])
@@ -108,7 +105,6 @@ const AddExistsLessonPage = () => {
                         match = false
                         let next = false
                         console.log(lessons)
-                        lessonsValue = JSON.parse(JSON.stringify(lessons))
                         // for (const selectedLessonKey in selectedLessons) {
                         //     next = false
                         for (const lessonsKey in lessonsValue) {
@@ -117,24 +113,17 @@ const AddExistsLessonPage = () => {
                                     ...lessonsValue[lessonsKey].subjects[subjectKey],
                                     dayNum: lessonsValue[lessonsKey].dayNum
                                 }, selectedLessons[selectedLessonKey])) {
-                                    console.log("deleting")
-                                    console.log(selectedLessons[selectedLessonKey])
                                     lessonsValue[lessonsKey].subjects.splice(subjectKey)
-                                    console.log(lessonsValue)
                                     //setLessons(lessonsValue)
-                                    console.log(lessons)
+                                    console.log(lessonsValue)
                                     next = true
                                     break
                                 }
                             }
                             if (next) break
                         }
-                        //}
-                        //  setLessons(lessonsValue)
                     }
                 }
-                console.log("&%*%&*($&%&^*")
-                console.log(lessonsValue)
                 setLessons(lessonsValue)
             }
         }

@@ -69,62 +69,51 @@ const AddExistsLessonPage = () => {
             return userLessons
         }
 
+        const deleteLessonFromCurrentTable = (lessons, lesson) => {
+            let next = false
+            for (const lessonsKey in lessons) {
+                for (const subjectKey in lessons[lessonsKey].subjects) {
+                    if (matchLessons({
+                        ...lessons[lessonsKey].subjects[subjectKey],
+                        dayNum: lessons[lessonsKey].dayNum
+                    }, lesson)) {
+                        lessons[lessonsKey].subjects.splice(subjectKey)
+                        next = true
+                        break
+                    }
+                }
+                if (next) break
+            }
+        }
+
         const save = async () => {
             let lessonsValue = JSON.parse(JSON.stringify(lessons))
             let match = false;
             if (selectedLessons.length === 0) {
                 alert("Ничего не выбрано для сохранения")
             } else {
+                let answerString = ""
                 const userLessons = await getUserLessons()
                 for (const selectedLessonKey in selectedLessons) {
                     match = false
                     for (const userLessonKey in userLessons) {
                         if (matchLessons(userLessons[userLessonKey], selectedLessons[selectedLessonKey])) {
                             match = true
-                            alert("Невозможно добавить! " + selectedLessons[selectedLessonKey].name +
-                                " " + selectedLessons[selectedLessonKey].type + " уже есть в вашем расписании")
-                            let next = false
-                            for (const lessonsKey in lessonsValue) {
-                                for (const subjectKey in lessonsValue[lessonsKey].subjects) {
-                                    if (matchLessons({
-                                        ...lessonsValue[lessonsKey].subjects[subjectKey],
-                                        dayNum: lessonsValue[lessonsKey].dayNum
-                                    }, selectedLessons[selectedLessonKey])) {
-                                        lessonsValue[lessonsKey].subjects.splice(subjectKey)
-                                        next = true
-                                        break
-                                    }
-                                }
-                                if (next) break
-                            }
+                            answerString = answerString + "Невозможно добавить! " + selectedLessons[selectedLessonKey].name +
+                                " " + selectedLessons[selectedLessonKey].type + " уже есть в вашем расписании\n"
+                            deleteLessonFromCurrentTable(lessonsValue, selectedLessons[selectedLessonKey])
                         }
                     }
                     if (!match) {
                         addLesson(selectedLessons[selectedLessonKey])
-                        alert("Сохранено " + selectedLessons[selectedLessonKey].name + " " + selectedLessons[selectedLessonKey].type + "!")
+                        answerString = answerString + "Сохранено " +
+                            selectedLessons[selectedLessonKey].name + " " + selectedLessons[selectedLessonKey].type + "!\n"
                         match = false
-                        let next = false
-                        console.log(lessons)
-                        // for (const selectedLessonKey in selectedLessons) {
-                        //     next = false
-                        for (const lessonsKey in lessonsValue) {
-                            for (const subjectKey in lessonsValue[lessonsKey].subjects) {
-                                if (matchLessons({
-                                    ...lessonsValue[lessonsKey].subjects[subjectKey],
-                                    dayNum: lessonsValue[lessonsKey].dayNum
-                                }, selectedLessons[selectedLessonKey])) {
-                                    lessonsValue[lessonsKey].subjects.splice(subjectKey)
-                                    //setLessons(lessonsValue)
-                                    console.log(lessonsValue)
-                                    next = true
-                                    break
-                                }
-                            }
-                            if (next) break
-                        }
+                        deleteLessonFromCurrentTable(lessonsValue, selectedLessons[selectedLessonKey])
                     }
                 }
                 setLessons(lessonsValue)
+                alert(answerString)
             }
         }
 

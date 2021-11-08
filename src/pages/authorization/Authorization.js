@@ -13,8 +13,8 @@ const Authorization = () => {
     const [nameValue, setNameValue] = name;
     const [groupValue, setGroupValue] = group;
 
-    const [nameState, setNameState] = useState("");
-    const [groupState, setGroupState] = useState("")
+    const [nameState, setNameState] = useState("Валькова Арина Сергеевна");
+    const [groupState, setGroupState] = useState("18206")
 
     async function isScheduleCorrect() {
         const response = await getGroupsFromServer()

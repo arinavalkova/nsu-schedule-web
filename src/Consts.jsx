@@ -12,7 +12,7 @@ export const firstWeek = "нечетная"
 export const empty = ""
 export const nullLine = "null"
 
-export const grey = '#f1f1ee'
+export const grey = '#dcbdee'
 export const white = '#ffffff'
 
 export const MainPath = '/main'

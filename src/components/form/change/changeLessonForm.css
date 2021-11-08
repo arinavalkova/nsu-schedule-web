@@ -1,0 +1,20 @@
+.changeFormButton {
+    margin-right: 10px;
+}
+
+.changeLessonsParamsBox {
+   max-width: 150px;
+}
+
+.changeLessonsParamsBox select {
+    margin-bottom: 7px;
+}
+
+.changeLessonsParamsBox input {
+    margin-bottom: 7px;
+}
+
+.changeLessonsParamsBox button {
+    margin-bottom: 7px;
+    width: 150px;
+}

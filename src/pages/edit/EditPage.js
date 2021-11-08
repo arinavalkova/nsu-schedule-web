@@ -5,11 +5,11 @@ import ScheduleTable from "../../components/table/ScheduleTable";
 import {AuthContext} from "../../context";
 import {useHistory} from "react-router-dom";
 import Cell from "../../components/cell/Cell";
-import ClickToDeleteLesson from "../../components/lesson/ClickToDeleteLesson";
+import ClickToEditLesson from "../../components/lesson/ClickToEditLesson";
 import "./editPage.css"
 import {MainPath} from "../../Consts";
 import {
-    addLessonToServer,
+    addLessonToServer, changeLessonFromServer,
     deleteLessonFromServer,
     getScheduleFromServer
 } from "../../ServerApi";
@@ -55,6 +55,16 @@ function EditPage() {
         setLessons((await getScheduleFromServer()).data.table)
     }
 
+    const changeLesson = async (oldSubject, newSubject) => {
+        console.log("JFEFKJF")
+        console.log(oldSubject)
+        console.log(newSubject)
+        console.log("JFEFKJF")
+        await changeLessonFromServer(oldSubject, newSubject)
+        const response = (await getScheduleFromServer()).data.table
+        setLessons(response)
+    }
+
     const create = () => {
         setCreateMenuForm(true)
     }
@@ -80,8 +90,8 @@ function EditPage() {
                     <Modal visible={groupForm} setVisible={setGroupForm}>
                         <ChooseGroupForm setVisible={setGroupForm} setMenuVisible={setCreateMenuForm}/>
                     </Modal>
-                    <ScheduleTable remove={removeLesson} lessons={lessons} CellClass={Cell}
-                                   LessonClass={ClickToDeleteLesson}/>
+                    <ScheduleTable remove={removeLesson} change={changeLesson} lessons={lessons} CellClass={Cell}
+                                   LessonClass={ClickToEditLesson}/>
                 </div>
             </div>
         </div>

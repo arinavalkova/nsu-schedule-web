@@ -13,13 +13,17 @@ export async function getScheduleFromServer() {
 }
 
 export async function addLessonToServer(lesson) {
-    return await axios.put("http://localhost:8080/api/table", {dayNum: lesson.dayNum, subject: lesson})
+    return await axios.put("http://localhost:8080/api/table/subject", {dayNum: lesson.dayNum, subject: lesson})
 }
 
 export async function deleteLessonFromServer(lesson) {
-    return await axios.delete("http://localhost:8080/api/table", {data: lesson})
+    return await axios.delete("http://localhost:8080/api/table/subject", {data: lesson})
 }
 
 export async function getGroupScheduleFromServer(group) {
     return await axios.get('http://localhost:8080/api/table/' + group)
+}
+
+export async function changeLessonFromServer(oldSubject, newSubjectParams) {
+    return await axios.put('http://localhost:8080/api/table/subject', {oldSubject, ...newSubjectParams})
 }

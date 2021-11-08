@@ -1,16 +1,17 @@
-import React, {useContext} from 'react';
-import {Redirect, Route, Switch} from "react-router-dom";
+import React, {useContext, useState} from 'react';
+import {Redirect, Route, Switch, useHistory} from "react-router-dom";
 import {privateRoutes, publicRoutes} from "./Router";
-import {AuthContext} from "../context";
 import {AuthPath, MainPath} from "../Consts";
+import {getScheduleFromServer} from "../ServerApi";
+import {AuthContext} from "../context";
 
 const ApplicationRouter = () => {
-    const {name, group} = useContext(AuthContext)
-    const [nameValue, setNameValue] = name;
-    const [groupValue, setGroupValue] = group;
+
+    const {isAuth} = useContext(AuthContext)
+    const [isAuthValue, setIsAuthValue] = isAuth;
 
     return (
-        groupValue ?
+        isAuthValue == "true" ?
             <Switch>
                 {privateRoutes.map(route =>
                     <Route

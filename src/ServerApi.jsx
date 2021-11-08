@@ -27,3 +27,11 @@ export async function getGroupScheduleFromServer(group) {
 export async function changeLessonFromServer(oldSubject, newSubjectParams) {
     return await axios.put('http://localhost:8080/api/table/subject', {oldSubject, ...newSubjectParams})
 }
+
+export async function logoutFromServer() {
+    await axios.post('http://localhost:8080/api/logout')
+}
+
+export async function setNewScheduleToServer(lessons) {
+    await axios.put('http://localhost:8080/api/table',{table: lessons})
+}

@@ -8,7 +8,7 @@ import {useHistory} from "react-router-dom";
 import SimpleLesson from "../../components/lesson/SimpleLesson";
 import {AuthPath, EditPath} from "../../Consts";
 import "./mainPage.css"
-import {getScheduleFromServer, setAndGetScheduleFromServer} from "../../ServerApi";
+import {getScheduleFromServer, logoutFromServer, setAndGetScheduleFromServer} from "../../ServerApi";
 
 function MainPage() {
     const router = useHistory()
@@ -21,21 +21,30 @@ function MainPage() {
 
     useEffect(() => {
         axios.defaults.withCredentials = true
-        setUserSchedule(nameValue, groupValue)
+        setUserSchedule()
     }, [groupValue, nameValue])
 
-    const setUserSchedule = async (name, group) => {
+    const setUserSchedule = async () => {
         const response = await getScheduleFromServer()
-        console.log(response.data)
         setLessons(response.data.table)
     }
 
-    const logout = () => {
-        setGroupValue("")
-        setNameValue("")
-        localStorage.setItem('name', "")
-        localStorage.setItem('group', "")
-        router.push(AuthPath)
+    const logout = async () => {
+        await logoutFromServer()
+        if (!(await getScheduleFromServer()).data) {
+            localStorage.setItem('isAuth', "false")
+            setGroupValue("")
+            setNameValue("")
+            localStorage.setItem('name', "")
+            localStorage.setItem('group', "")
+            router.push(AuthPath)
+            window.location.reload()
+        }
+    }
+
+    const save = () => {
+        console.log(lessons)
+        alert(window.btoa((unescape(encodeURIComponent(JSON.stringify(lessons))))))
     }
 
     return (
@@ -44,8 +53,9 @@ function MainPage() {
                 <div className="header">
                     <button className="backButton" onClick={logout}>Выйти</button>
                     <button className="editButton" onClick={() => router.push(EditPath)}>Изменить</button>
-                    <h1 className="headerText">{nameValue} {groupValue}</h1>
+                    <button className="saveButton" onClick={save}>Сохранить расписание</button>
                 </div>
+                <div><h1 className="headerText">{nameValue} {groupValue}</h1></div>
                 <div className="content">
                     <ScheduleTable lessons={lessons} CellClass={Cell} LessonClass={SimpleLesson}/>
                 </div>

@@ -2,8 +2,14 @@
     float: right;
 }
 
+.saveButton {
+    float: right;
+    margin-right: 7px;
+}
+
 .headerText {
     text-align: center;
+    padding-top: 10px;
 }
 
 .backButton {
@@ -11,5 +17,5 @@
 }
 
 .header {
-    padding-bottom: 10px;
+    padding-bottom: 30px;
 }

@@ -1,17 +1,19 @@
 import React, {useState} from 'react';
-import "./loadForm.css"
+import "./simpleLoadForm.css"
 
-const LoadForm = ({load, setVisible}) => {
+const SimpleLoadForm = ({load, setVisible}) => {
 
     const [base64, setBase64] = useState("")
 
     const close = (e) => {
         e.preventDefault()
+        setBase64("")
         setVisible(false)
     }
 
     const loadLessons = (e) => {
         e.preventDefault()
+        setBase64("")
         load(base64)
         setVisible(false)
     }
@@ -29,4 +31,4 @@ const LoadForm = ({load, setVisible}) => {
     );
 };
 
-export default LoadForm;
+export default SimpleLoadForm;

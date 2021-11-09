@@ -11,7 +11,7 @@ import {useHistory} from "react-router-dom";
 import {MainPath} from "../../Consts";
 import AddLessonForm from "../../components/form/add/AddLessonForm";
 import Modal from "../../components/form/modal/Modal";
-import LoadForm from "../../components/form/load/LoadForm";
+import SimpleLoadForm from "../../components/form/load/simple/SimpleLoadForm";
 
 const Authorization = () => {
 
@@ -87,7 +87,7 @@ const Authorization = () => {
                     <button onClick={login} className="child">Показать расписание</button>
                     <button onClick={setLoadFormEvent} className="child">Загрузить расписание</button>
                     <Modal visible={loadForm} setVisible={setLoadForm}>
-                        <LoadForm load={load} setVisible={setLoadForm}/>
+                        <SimpleLoadForm load={load} setVisible={setLoadForm}/>
                     </Modal>
                 </div>
             </div>

@@ -33,5 +33,5 @@ export async function logoutFromServer() {
 }
 
 export async function setNewScheduleToServer(lessons) {
-    await axios.put('http://localhost:8080/api/table',{table: lessons})
+    return await axios.put('http://localhost:8080/api/table',{table: lessons})
 }

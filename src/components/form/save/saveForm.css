@@ -1,0 +1,16 @@
+.saveForm {
+    max-width: 500px;
+    max-height: 500px;
+}
+
+.base64String {
+    max-height: 400px;
+    overflow: auto;
+    overflow-x: scroll;
+    overflow-y: scroll;
+    margin-bottom: 10px;
+}
+
+.child {
+    margin-bottom: 10px;
+}

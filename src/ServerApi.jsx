@@ -13,7 +13,7 @@ export async function getScheduleFromServer() {
 }
 
 export async function addLessonToServer(lesson) {
-    return await axios.put("http://localhost:8080/api/table/subject", {dayNum: lesson.dayNum, subject: lesson})
+    return await axios.post("http://localhost:8080/api/table/subject", {dayNum: lesson.dayNum, subject: lesson})
 }
 
 export async function deleteLessonFromServer(lesson) {

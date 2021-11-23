@@ -9,9 +9,9 @@ import {
 } from "../../ServerApi";
 import {useHistory} from "react-router-dom";
 import {MainPath} from "../../Consts";
-import AddLessonForm from "../../components/form/add/AddLessonForm";
 import Modal from "../../components/form/modal/Modal";
 import SimpleLoadForm from "../../components/form/load/simple/SimpleLoadForm";
+import LoadingPage from "../../components/loader/LoadingPage";
 
 const Authorization = () => {
 
@@ -24,6 +24,7 @@ const Authorization = () => {
     const [nameState, setNameState] = useState("Валькова Арина Сергеевна");
     const [groupState, setGroupState] = useState("18206")
     const [loadForm, setLoadForm] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     async function isScheduleCorrect() {
         const response = await getGroupsFromServer()
@@ -36,6 +37,7 @@ const Authorization = () => {
 
     const login = async event => {
         event.preventDefault()
+        setLoading(true)
         if (await isScheduleCorrect()) {
             setNameValue(nameState)
             setGroupValue(groupState)
@@ -52,6 +54,7 @@ const Authorization = () => {
                 window.location.reload()
             }
         } else alert("Некорректные данные!")
+        setLoading(false)
     }
 
     const setLoadFormEvent = (event) => {
@@ -60,6 +63,7 @@ const Authorization = () => {
     }
 
     const load = async (base64) => {
+        setLoading(true)
         console.log((window.atob(base64)))
         await setNewScheduleToServer(JSON.parse(decodeURIComponent(escape(window.atob(base64)))))
         console.log("here")
@@ -71,12 +75,14 @@ const Authorization = () => {
         } else {
             alert("Произошла ошибка при загрузке расписания")
         }
+        setLoading(false)
     }
 
     return (
         <div className="parent">
             <div className="authForm">
                 <h1 className="child">Поиск расписания</h1>
+                <LoadingPage visible={loading}/>
                 <div>
                     <input value={nameState}
                            onChange={(e) => setNameState(e.target.value)}

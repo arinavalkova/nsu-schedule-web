@@ -38,7 +38,7 @@ const SaveForm = ({ lessons, setVisible, next }) => {
                         {copySuccess}
                     </div>
                 }
-                <button className="child" onClick={close}>Дальше</button>
+                <button className="child" onClick={close}>Закрыть</button>
             </div>
         </form>
     );

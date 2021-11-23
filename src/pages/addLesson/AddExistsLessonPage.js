@@ -8,6 +8,7 @@ import {useHistory} from "react-router-dom";
 import {EditPath} from "../../Consts";
 import "./addExistsLessonPage.css"
 import ClickToAddLesson from "../../components/lesson/ClickToAddLesson";
+import LoadingPage from "../../components/loader/LoadingPage";
 
 const AddExistsLessonPage = () => {
 
@@ -16,6 +17,7 @@ const AddExistsLessonPage = () => {
         const [findGroupValue, setFindGroupValue] = findGroup
         const [lessons, setLessons] = useState()
         const selectedLessons = []
+        const [loading, setLoading] = useState(false)
 
         useEffect(() => {
             axios.defaults.withCredentials = true
@@ -23,16 +25,22 @@ const AddExistsLessonPage = () => {
         }, [])
 
         const getGroupSchedule = async (group) => {
+            setLoading(true)
             const response = await getGroupScheduleFromServer(group)
             setLessons(response.data.table)
+            setLoading(false)
         }
 
         const addLesson = async (lesson) => {
+            setLoading(true)
             await addLessonToServer(lesson)
+            setLoading(false)
         }
 
         const close = () => {
+            setLoading(true)
             router.push(EditPath)
+            setLoading(false)
         }
 
         const addLessonToList = (lesson) => {
@@ -58,6 +66,7 @@ const AddExistsLessonPage = () => {
         }
 
         const getUserLessons = async () => {
+            setLoading(true)
             const userLessons = []
             const responseTable = (await getScheduleFromServer()).data.table
             for (let i = 0; i < responseTable.length; i++) {
@@ -67,6 +76,7 @@ const AddExistsLessonPage = () => {
                 }
             }
             return userLessons
+            setLoading(false)
         }
 
         const deleteLessonFromCurrentTable = (lessons, lesson) => {
@@ -87,6 +97,7 @@ const AddExistsLessonPage = () => {
         }
 
         const save = async () => {
+            setLoading(true)
             let lessonsValue = JSON.parse(JSON.stringify(lessons))
             let match = false;
             if (selectedLessons.length === 0) {
@@ -115,11 +126,13 @@ const AddExistsLessonPage = () => {
                 setLessons(lessonsValue)
                 alert(answerString)
             }
+            setLoading(false)
         }
 
         return (
             <div className="page">
                 <div>
+                    <LoadingPage visible={loading}/>
                     <div className="header">
                         <h1>Выберите пары для добавления из {findGroupValue}</h1>
                     </div>

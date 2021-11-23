@@ -17,6 +17,7 @@ import Modal from "../../components/form/modal/Modal";
 import CreateMenuForm from "../../components/form/create/CreateMenuForm";
 import AddLessonForm from "../../components/form/add/AddLessonForm";
 import ChooseGroupForm from "../../components/form/choose/ChooseGroupForm";
+import LoadingPage from "../../components/loader/LoadingPage";
 
 function EditPage() {
     const router = useHistory()
@@ -28,6 +29,7 @@ function EditPage() {
     const [createMenuForm, setCreateMenuForm] = useState(false)
     const [createNewLessonForm, setCreateNewLessonForm] = useState(false)
     const [groupForm, setGroupForm] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const [lessons, setLessons] = useState()
     const [currentGroup] = useState(groupValue)
@@ -38,24 +40,31 @@ function EditPage() {
     }, [])
 
     const getUserSchedule = async () => {
+        setLoading(true)
         const response = await getScheduleFromServer()
         setLessons(response.data.table)
         console.log(response.data.table)
+        setLoading(false)
     }
 
     const addLesson = async (lesson) => {
+        setLoading(true)
         await addLessonToServer(lesson)
         const response = (await getScheduleFromServer()).data.table
         console.log(response)
         setLessons(response)
+        setLoading(false)
     }
 
     const removeLesson = async (lesson) => {
+        setLoading(true)
         await deleteLessonFromServer(lesson)
         setLessons((await getScheduleFromServer()).data.table)
+        setLoading(false)
     }
 
     const changeLesson = async (oldSubject, newSubject) => {
+        setLoading(true)
         console.log("JFEFKJF")
         console.log(oldSubject)
         console.log(newSubject)
@@ -63,6 +72,7 @@ function EditPage() {
         await changeLessonFromServer(oldSubject, newSubject)
         const response = (await getScheduleFromServer()).data.table
         setLessons(response)
+        setLoading(false)
     }
 
     const create = () => {
@@ -72,6 +82,7 @@ function EditPage() {
     return (
         <div className="page">
             <div>
+                <LoadingPage visible={loading}/>
                 <div className="header">
                     <button className="backButton" onClick={() => router.push(MainPath)}>Назад</button>
                     <button className="createButton" onClick={create}>Создать новую пару</button>

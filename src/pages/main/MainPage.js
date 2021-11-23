@@ -17,6 +17,7 @@ import Modal from "../../components/form/modal/Modal";
 import SaveForm from "../../components/form/save/SaveForm";
 import ComplexLoadForm from "../../components/form/load/complex/ComplexLoadForm";
 import SimpleLoadForm from "../../components/form/load/simple/SimpleLoadForm";
+import LoadingPage from "../../components/loader/LoadingPage";
 
 function MainPage() {
     const router = useHistory()
@@ -30,6 +31,7 @@ function MainPage() {
     const [complexLoadMenu, setComplexLoadMenu] = useState(false)
     const [complexSaveFormMenu, setComplexSaveFormMenu] = useState(false)
     const [simpleFormMenu, setSimpleFormMenu] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         axios.defaults.withCredentials = true
@@ -37,12 +39,15 @@ function MainPage() {
     }, [groupValue, nameValue])
 
     const setUserSchedule = async () => {
+        setLoading(true)
         const response = await getScheduleFromServer()
         console.log(response)
         setLessons(response.data.table)
+        setLoading(false)
     }
 
     const logout = async () => {
+        setLoading(true)
         await logoutFromServer()
         if (!(await getScheduleFromServer()).data) {
             localStorage.setItem('isAuth', "false")
@@ -53,9 +58,11 @@ function MainPage() {
             router.push(AuthPath)
             window.location.reload()
         }
+        setLoading(false)
     }
 
     const load = async (base64) => {
+        setLoading(true)
         try {
             const response = await setNewScheduleToServer(JSON.parse(decodeURIComponent(escape(window.atob(base64)))))
             if (response.status == "200")
@@ -64,11 +71,13 @@ function MainPage() {
         } catch (InvalidCharacterError) {
             alert("Произошла ошибка при загрузке расписания!")
         }
+        setLoading(false)
     }
 
     return (
         <div className="page">
             <div>
+                <LoadingPage visible={loading}/>
                 <div className="header">
                     <button className="backButton" onClick={logout}>Выйти</button>
                     <button className="editButton" onClick={() => router.push(EditPath)}>Изменить</button>

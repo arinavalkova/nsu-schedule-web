@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import "./saveForm.css"
+import { saveAs } from 'file-saver';
 
 const SaveForm = ({ lessons, setVisible, next }) => {
 
@@ -22,6 +23,13 @@ const SaveForm = ({ lessons, setVisible, next }) => {
     }
 
     let baseString = window.btoa((unescape(encodeURIComponent(JSON.stringify(lessons)))));
+
+    const saveByFile = (e) => {
+        e.preventDefault()
+        const blob = new Blob([baseString],
+            {type: "text/plain;charset=utf-8"});
+        saveAs(blob, "schedule_string.txt");
+    }
     return (
         <form>
             <div className="saveForm">
@@ -38,6 +46,7 @@ const SaveForm = ({ lessons, setVisible, next }) => {
                         {copySuccess}
                     </div>
                 }
+                <button onClick={saveByFile}>Сохранить файлом</button>
                 <button className="child" onClick={close}>Закрыть</button>
             </div>
         </form>

@@ -1,11 +1,17 @@
 import Authorization from "../pages/authorization/Authorization";
 import EditPage from "../pages/edit/EditPage";
 import MainPage from "../pages/main/MainPage";
-import {AddPath, AuthPath, EditPath, MainPath} from "../Consts";
+// import {AddPath, AuthPath, EditPath, MainPath} from "../Consts";
 import AddExistsLessonPage from "../pages/addLesson/AddExistsLessonPage";
+import {AddPath, AuthPath, EditPath, GreetPath, MainPath, RegPath} from "../Consts";
+import GreetingPage from "../pages/greeting/GreetingPage";
+import AuthPage from "../pages/auth/AuthPage";
+import RegPage from "../pages/reg/RegPage";
 
 export const publicRoutes = [
-    {path: AuthPath, component: Authorization, exact: true},
+    {path: GreetPath, component: GreetingPage, exact: true},
+    {path: AuthPath, component: AuthPage, exact: true},
+    {path: RegPath, component: RegPage, exact: true}
 ]
 
 export const privateRoutes = [

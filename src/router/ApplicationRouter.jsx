@@ -1,7 +1,7 @@
 import React, {useContext, useState} from 'react';
 import {Redirect, Route, Switch, useHistory} from "react-router-dom";
 import {privateRoutes, publicRoutes} from "./Router";
-import {AuthPath, MainPath} from "../Consts";
+import {GreetPath, MainPath} from "../Consts";
 import {getScheduleFromServer} from "../ServerApi";
 import {AuthContext} from "../context";
 
@@ -33,7 +33,7 @@ const ApplicationRouter = () => {
                         key={route.path}
                     />
                 )}
-                <Redirect to={AuthPath}/>
+                <Redirect to={GreetPath}/>
             </Switch>
     );
 };

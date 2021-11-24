@@ -6,7 +6,7 @@ import {AuthContext} from "../../context";
 import Cell from "../../components/cell/Cell";
 import {useHistory} from "react-router-dom";
 import SimpleLesson from "../../components/lesson/SimpleLesson";
-import {AuthPath, EditPath} from "../../Consts";
+import {EditPath} from "../../Consts";
 import "./mainPage.css"
 import {
     getScheduleFromServer,
@@ -55,7 +55,7 @@ function MainPage() {
             setNameValue("")
             localStorage.setItem('name', "")
             localStorage.setItem('group', "")
-            router.push(AuthPath)
+            // router.push(AuthPath)
             window.location.reload()
         }
         setLoading(false)

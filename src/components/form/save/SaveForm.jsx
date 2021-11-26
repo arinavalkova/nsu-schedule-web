@@ -46,7 +46,7 @@ const SaveForm = ({ lessons, setVisible, next }) => {
                         {copySuccess}
                     </div>
                 }
-                <button onClick={saveByFile}>Сохранить файлом</button>
+                <button className="child" onClick={saveByFile}>Сохранить файлом</button>
                 <button className="child" onClick={close}>Закрыть</button>
             </div>
         </form>

@@ -35,3 +35,11 @@ export async function logoutFromServer() {
 export async function setNewScheduleToServer(lessons) {
     return await axios.put('http://localhost:8080/api/table',{table: lessons})
 }
+
+export async function registerOnTheServer(login, password) {
+    return await axios.post('http://localhost:8080/api/user/save', {username: login, password})
+}
+
+export async function authenticateOnTheServer(login, password) {
+    return await axios.post('http://localhost:8080/api/login', {username: login, password})
+}

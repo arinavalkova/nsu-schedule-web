@@ -23,7 +23,7 @@ const ComplexLoadForm = ({setVisible, setComplexSaveFormMenu, setSimpleFormMenu}
     return (
         <form>
             <div className="complexLoadForm">
-                <h2>Хотите сохранить текущее расписание в base64 строку?</h2>
+                <h2>Хотите сохранить текущее расписание?</h2>
                 <button className="child" onClick={yes}>Да</button>
                 <button className="child" onClick={no}>Нет</button>
                 <button className="child" onClick={close}>Закрыть</button>

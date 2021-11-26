@@ -1,20 +1,24 @@
 import React, { useRef, useState } from 'react';
 import "./saveForm.css"
 import { saveAs } from 'file-saver';
+import LoadingPage from "../../loader/LoadingPage";
 
 const SaveForm = ({ lessons, setVisible, next }) => {
 
     const [copySuccess, setCopySuccess] = useState('');
     const textAreaRef = useRef(null);
     const [distantLink,setDistantLink] = useState('')
+    const [loading, setLoading] = useState(false)
 
     const saveDistant = () => {
+        setLoading(true)
         const response = null // request to backend
         if (response == null) {
             setDistantLink('Невозможно сохранить удаленно составленное расписание')
         } else {
             setDistantLink('Расписание успешно сохранено\n' + response)
         }
+        setLoading(false)
     }
 
     const close = (e) => {
@@ -35,14 +39,17 @@ const SaveForm = ({ lessons, setVisible, next }) => {
     let baseString = window.btoa((unescape(encodeURIComponent(JSON.stringify(lessons)))));
 
     const saveByFile = (e) => {
+        setLoading(true)
         e.preventDefault()
         const blob = new Blob([baseString],
             {type: "text/plain;charset=utf-8"});
         saveAs(blob, "schedule_string.txt");
+        setLoading(false)
     }
     return (
         <form>
             <div className="saveForm">
+                <LoadingPage visible={loading}/>
                 <h1 className="child">Сохранение расписания:</h1>
                 <div>
                     <h2>Ссылка для локального сохранения:</h2>

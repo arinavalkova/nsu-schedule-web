@@ -61,7 +61,7 @@ function MainPage() {
         setLoading(false)
     }
 
-    const load = async (base64) => {
+    const loadFromLocal = async (base64) => {
         setLoading(true)
         try {
             const response = await setNewScheduleToServer(JSON.parse(decodeURIComponent(escape(window.atob(base64)))))
@@ -72,6 +72,10 @@ function MainPage() {
             alert("Произошла ошибка при загрузке расписания!")
         }
         setLoading(false)
+    }
+
+    const loadFromDistant = () => {
+        //TODO
     }
 
     return (
@@ -100,7 +104,7 @@ function MainPage() {
                     <SaveForm next={setSimpleFormMenu} lessons={lessons} setVisible={setComplexSaveFormMenu}/>
                 </Modal>
                 <Modal visible={simpleFormMenu} setVisible={setSimpleFormMenu}>
-                    <SimpleLoadForm load={load} setVisible={setSimpleFormMenu}/>
+                    <SimpleLoadForm loadFromLocal={loadFromLocal} loadFromDistant={loadFromDistant} setVisible={setSimpleFormMenu}/>
                 </Modal>
             </div>
         </div>

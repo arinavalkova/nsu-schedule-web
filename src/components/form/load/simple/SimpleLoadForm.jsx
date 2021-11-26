@@ -1,30 +1,52 @@
 import React, {useState} from 'react';
 import "./simpleLoadForm.css"
+import LoadingPage from "../../../loader/LoadingPage";
 
-const SimpleLoadForm = ({load, setVisible}) => {
+const SimpleLoadForm = ({loadFromLocal, loadFromDistant, setVisible}) => {
 
-    const [base64, setBase64] = useState("")
+    const [localLink, setLocalLink] = useState("")
+    const [loading, setLoading] = useState(false)
+    const [distantLink, setDistantLink] = useState("")
 
     const close = (e) => {
         e.preventDefault()
-        setBase64("")
+        setLocalLink("")
         setVisible(false)
     }
 
-    const loadLessons = (e) => {
+    const loadFromLocalLink = (e) => {
+        setLoading(true)
         e.preventDefault()
-        setBase64("")
-        load(base64)
+        setLocalLink("")
+        loadFromLocal(localLink)
         setVisible(false)
+        setLoading(false)
+    }
+
+    const loadFromDistantLink = (e) => {
+        setLoading(true)
+        e.preventDefault()
+        setDistantLink("")
+        loadFromDistant(distantLink)
+        setVisible(false)
+        setLoading(false)
     }
 
     return (
         <form>
             <div className="loadForm">
+                <LoadingPage visible={loading}/>
                 <h2>Загрузить расписание:</h2>
-                <input className="child" type="text" placeholder={"Введите base64"} value={base64}
-                       onChange={(e) => setBase64(e.target.value)}/>
-                <button className="child" onClick={loadLessons}>Загрузить</button>
+                <div>
+                    <input type="text" placeholder={"Введите локальную ссылку"} value={localLink}
+                           onChange={(e) => setLocalLink(e.target.value)}/>
+                    <button onClick={loadFromLocalLink}>Загрузить по локальной ссылке</button>
+                </div>
+                <div>
+                    <input type="text" placeholder={"Введите дистанционную ссылку"} value={distantLink}
+                           onChange={(e) => setDistantLink(e.target.value)}/>
+                    <button onClick={loadFromDistantLink}>Загрузить по удаленной ссылке</button>
+                </div>
                 <button className="child" onClick={close}>Закрыть</button>
             </div>
         </form>

@@ -6,7 +6,7 @@ import {AuthContext} from "../../context";
 import Cell from "../../components/cell/Cell";
 import {useHistory} from "react-router-dom";
 import SimpleLesson from "../../components/lesson/SimpleLesson";
-import {EditPath} from "../../Consts";
+import {EditPath, GreetPath} from "../../Consts";
 import "./mainPage.css"
 import {
     getScheduleFromServer,
@@ -22,9 +22,10 @@ import LoadingPage from "../../components/loader/LoadingPage";
 function MainPage() {
     const router = useHistory()
 
-    const {name, group} = useContext(AuthContext)
+    const {name, group, isAuth} = useContext(AuthContext)
     const [nameValue, setNameValue] = name;
     const [groupValue, setGroupValue] = group;
+    const [isAuthValue, setIsAuthValue] = isAuth;
 
     const [lessons, setLessons] = useState()
     const [saveFormMenu, setSaveFormMenu] = useState(false)
@@ -34,7 +35,6 @@ function MainPage() {
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        axios.defaults.withCredentials = true
         setUserSchedule()
     }, [groupValue, nameValue])
 
@@ -43,21 +43,6 @@ function MainPage() {
         const response = await getScheduleFromServer()
         console.log(response)
         setLessons(response.data.table)
-        setLoading(false)
-    }
-
-    const logout = async () => {
-        setLoading(true)
-        await logoutFromServer()
-        if (!(await getScheduleFromServer()).data) {
-            localStorage.setItem('isAuth', "false")
-            setGroupValue("")
-            setNameValue("")
-            localStorage.setItem('name', "")
-            localStorage.setItem('group', "")
-            // router.push(AuthPath)
-            window.location.reload()
-        }
         setLoading(false)
     }
 
@@ -78,13 +63,24 @@ function MainPage() {
         //TODO
     }
 
+    const back = () => {
+        setLoading(true)
+        router.push(GreetPath)
+        setLoading(false)
+    }
+
+    const saveNameAndGroup = () => {
+
+    }
+
     return (
         <div className="page">
             <div>
                 <LoadingPage visible={loading}/>
                 <div className="header">
-                    <button className="backButton" onClick={logout}>Выйти</button>
+                    <button className="backButton" onClick={back}>Назад</button>
                     <button className="editButton" onClick={() => router.push(EditPath)}>Изменить</button>
+                    {isAuthValue == "true" && <button onClick={saveNameAndGroup}>Сохранить ФИО и группу</button>}
                     <button className="loadButton" onClick={() => setComplexLoadMenu(true)}>Загрузить расписание
                     </button>
                     <button className="saveButton" onClick={() => setSaveFormMenu(true)}>Сохранить расписание</button>

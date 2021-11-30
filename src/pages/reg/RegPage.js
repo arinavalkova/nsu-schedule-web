@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import "./reg.css"
 import LoadingPage from "../../components/loader/LoadingPage";
 import {useHistory} from "react-router-dom";
-import {GreetPath} from "../../Consts";
+import {GreetPath, MainPath} from "../../Consts";
 import {registerOnTheServer} from "../../ServerApi";
 
 const RegPage = () => {
@@ -13,10 +13,17 @@ const RegPage = () => {
 
     const router = useHistory()
 
-    const reg = () => {
+    const reg = async () => {
         setLoading(true)
-        const response = registerOnTheServer(login, password)
-        console.log(response)
+        const response = await registerOnTheServer(login, password)
+        if (response.status == 409) {
+            alert("Существующий логин. Повторите попытку")
+        } else if (response.status == 400) {
+            alert(response.data.errors[0].defaultMessage)
+        } else if (response.status == 200) {
+            router.push(GreetPath)
+            window.location.reload()
+        }
         setLoading(false)
     }
 

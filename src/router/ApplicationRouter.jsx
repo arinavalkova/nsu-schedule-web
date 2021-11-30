@@ -11,19 +11,19 @@ const ApplicationRouter = () => {
     const [isAuthValue, setIsAuthValue] = isAuth;
 
     return (
-        isAuthValue == "true" ?
-            <Switch>
-                {privateRoutes.map(route =>
-                    <Route
-                        component={route.component}
-                        path={route.path}
-                        exact={route.exact}
-                        key={route.path}
-                    />
-                )}
-                <Redirect to={MainPath}/>
-            </Switch>
-            :
+        // isAuthValue == "true" ?
+        //     <Switch>
+        //         {privateRoutes.map(route =>
+        //             <Route
+        //                 component={route.component}
+        //                 path={route.path}
+        //                 exact={route.exact}
+        //                 key={route.path}
+        //             />
+        //         )}
+        //         <Redirect to={MainPath}/>
+        //     </Switch>
+        //     :
             <Switch>
                 {publicRoutes.map(route =>
                     <Route

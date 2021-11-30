@@ -33,13 +33,34 @@ export async function logoutFromServer() {
 }
 
 export async function setNewScheduleToServer(lessons) {
-    return await axios.put('http://localhost:8080/api/table',{table: lessons})
+    return await axios.put('http://localhost:8080/api/table', {table: lessons})
 }
 
 export async function registerOnTheServer(login, password) {
-    return await axios.post('http://localhost:8080/api/user/save', {username: login, password})
+    let response
+    response = await axios.post('http://localhost:8080/api/user/save', {username: login, password})
+        .catch(error => response = error.response)
+    return response
 }
 
 export async function authenticateOnTheServer(login, password) {
-    return await axios.post('http://localhost:8080/api/login', {username: login, password})
+    let response
+    response = await axios.post('http://localhost:8080/login', {username: login, password})
+        .catch(error => response = error.response)
+    return response
+}
+
+export async function forgotPasswordFromServer(email) {
+    let response
+    response = await axios.post('http://localhost:8080/api/user/password', {email})
+        .catch(error => response = error.response)
+    return response
+}
+
+export async function getBaseScheduleFromServer() {
+    return await axios.get('http://localhost:8080/api/student_info')
+}
+
+export async function saveBaseScheduleToServer(name, group) {
+    await axios.post('http://localhost:8080/api/student_info', {name, groupNum: group})
 }

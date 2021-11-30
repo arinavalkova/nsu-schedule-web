@@ -1,12 +1,16 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import "./simpleLoadForm.css"
 import LoadingPage from "../../../loader/LoadingPage";
+import {AuthContext} from "../../../../context";
 
 const SimpleLoadForm = ({loadFromLocal, loadFromDistant, setVisible}) => {
 
     const [localLink, setLocalLink] = useState("")
     const [loading, setLoading] = useState(false)
     const [distantLink, setDistantLink] = useState("")
+
+    const {isAuth} = useContext(AuthContext)
+    const [isAuthValue, setIsAuthValue] = isAuth;
 
     const close = (e) => {
         e.preventDefault()
@@ -42,11 +46,14 @@ const SimpleLoadForm = ({loadFromLocal, loadFromDistant, setVisible}) => {
                            onChange={(e) => setLocalLink(e.target.value)}/>
                     <button onClick={loadFromLocalLink}>Загрузить по локальной ссылке</button>
                 </div>
-                <div>
-                    <input type="text" placeholder={"Введите дистанционную ссылку"} value={distantLink}
-                           onChange={(e) => setDistantLink(e.target.value)}/>
-                    <button onClick={loadFromDistantLink}>Загрузить по удаленной ссылке</button>
-                </div>
+                {
+                    isAuthValue == "true" &&
+                    <div>
+                        <input type="text" placeholder={"Введите дистанционную ссылку"} value={distantLink}
+                               onChange={(e) => setDistantLink(e.target.value)}/>
+                        <button onClick={loadFromDistantLink}>Загрузить по удаленной ссылке</button>
+                    </div>
+                }
                 <button className="child" onClick={close}>Закрыть</button>
             </div>
         </form>

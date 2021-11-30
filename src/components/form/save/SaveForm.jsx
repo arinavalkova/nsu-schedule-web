@@ -1,14 +1,18 @@
-import React, { useRef, useState } from 'react';
+import React, {useContext, useRef, useState} from 'react';
 import "./saveForm.css"
-import { saveAs } from 'file-saver';
+import {saveAs} from 'file-saver';
 import LoadingPage from "../../loader/LoadingPage";
+import {AuthContext} from "../../../context";
 
-const SaveForm = ({ lessons, setVisible, next }) => {
+const SaveForm = ({lessons, setVisible, next}) => {
 
     const [copySuccess, setCopySuccess] = useState('');
     const textAreaRef = useRef(null);
-    const [distantLink,setDistantLink] = useState('')
+    const [distantLink, setDistantLink] = useState('')
     const [loading, setLoading] = useState(false)
+
+    const {isAuth} = useContext(AuthContext)
+    const [isAuthValue, setIsAuthValue] = isAuth;
 
     const saveDistant = () => {
         setLoading(true)
@@ -53,11 +57,11 @@ const SaveForm = ({ lessons, setVisible, next }) => {
                 <h1 className="child">Сохранение расписания:</h1>
                 <div>
                     <h2>Ссылка для локального сохранения:</h2>
-                     <textarea
-                         className="child"
-                         ref={textAreaRef}
-                         value={baseString}
-                     />
+                    <textarea
+                        className="child"
+                        ref={textAreaRef}
+                        value={baseString}
+                    />
                     {
                         document.queryCommandSupported('copy') &&
                         <div>
@@ -67,10 +71,13 @@ const SaveForm = ({ lessons, setVisible, next }) => {
                     }
                     <button onClick={saveByFile}>Сохранить файлом</button>
                 </div>
-                <div>
-                    <button onClick={saveDistant}>Сохранить удаленно</button>
-                    <div>{distantLink}</div>
-                </div>
+                {
+                    isAuthValue == "true" &&
+                    <div>
+                        <button onClick={saveDistant}>Сохранить удаленно</button>
+                        <div>{distantLink}</div>
+                    </div>
+                }
                 <button className="child" onClick={close}>Закрыть</button>
             </div>
         </form>

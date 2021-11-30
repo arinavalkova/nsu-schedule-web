@@ -5,21 +5,36 @@ import LoadingPage from "../../components/loader/LoadingPage";
 import {GreetPath} from "../../Consts";
 import Modal from "../../components/form/modal/Modal";
 import RestorePasswordForm from "../../components/form/restore/RestorePasswordForm";
+import {authenticateOnTheServer, forgotPasswordFromServer} from "../../ServerApi";
 
 const AuthPage = () => {
 
     const [loading, setLoading] = useState(false)
     const [restoreForm, setRestoreForm] = useState(false)
 
+    const [login, setLogin] = useState('')
+    const [password, setPassword] = useState('')
+
     const router = useHistory()
 
-    const auth = () => {
+    const auth = async () => {
         setLoading(true)
+        const response = await authenticateOnTheServer(login, password)
+        if (response.status == 200) {
+            localStorage.setItem('isAuth', "true")
+            router.push(GreetPath)
+            setLogin('')
+            setPassword('')
+        } else {
+            alert("Не удалось авторизоваться!")
+        }
         setLoading(false)
     }
 
     const back = () => {
         setLoading(true)
+        setLogin('')
+        setPassword('')
         router.push(GreetPath)
         setLoading(false)
     }
@@ -33,8 +48,10 @@ const AuthPage = () => {
                     <RestorePasswordForm setVisible={setRestoreForm}/>
                 </Modal>
                 <div className="authForm">
-                    <input className="child" placeholder="Логин"/>
-                    <input className="child" placeholder="Пароль"/>
+                    <input className="child" placeholder="Логин" value={login}
+                           onChange={event => setLogin(event.target.value)}/>
+                    <input className="child" placeholder="Пароль" value={password}
+                           onChange={event => setPassword(event.target.value)}/>
                     <button className="child" onClick={auth}>Авторизоваться</button>
                     <button className="child" onClick={() => setRestoreForm(true)}>Восстановить пароль</button>
                     <button className="child" onClick={back}>Назад</button>

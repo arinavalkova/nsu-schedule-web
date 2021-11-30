@@ -11,11 +11,10 @@ import RegPage from "../pages/reg/RegPage";
 export const publicRoutes = [
     {path: GreetPath, component: GreetingPage, exact: true},
     {path: AuthPath, component: AuthPage, exact: true},
-    {path: RegPath, component: RegPage, exact: true}
-]
-
-export const privateRoutes = [
+    {path: RegPath, component: RegPage, exact: true},
     {path: EditPath, component: EditPage, exact: true},
     {path: MainPath, component: MainPage, exact: true},
     {path: AddPath, component: AddExistsLessonPage, exact: true}
 ]
+
+export const privateRoutes = []

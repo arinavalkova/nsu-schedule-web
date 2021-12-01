@@ -1,4 +1,5 @@
 import '../../App.css';
+import './editPage.css'
 import React, { useEffect, useState } from "react";
 import LoadingPage from "../../components/loader/LoadingPage";
 import { MainPath } from "../../Consts";

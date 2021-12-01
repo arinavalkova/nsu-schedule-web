@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
 import "./auth.css"
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from "react-router-dom";
 import LoadingPage from "../../components/loader/LoadingPage";
 import { GreetPath } from "../../Consts";

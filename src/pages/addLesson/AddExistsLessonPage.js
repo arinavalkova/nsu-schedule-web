@@ -1,3 +1,5 @@
+import './addExistsLessonPage.css'
+
 import React, { useEffect, useState } from 'react';
 import LoadingPage from "../../components/loader/LoadingPage";
 import ScheduleTable from "../../components/table/ScheduleTable";

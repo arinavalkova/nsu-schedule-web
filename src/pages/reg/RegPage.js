@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import "./reg.css"
 import LoadingPage from "../../components/loader/LoadingPage";
 import {useHistory} from "react-router-dom";
-import {GreetPath, MainPath} from "../../Consts";
+import {GreetPath} from "../../Consts";
 import {registerOnTheServer} from "../../ServerApi";
 
 const RegPage = () => {
@@ -21,16 +21,14 @@ const RegPage = () => {
         } else if (response.status == 400) {
             alert(response.data.errors[0].defaultMessage)
         } else if (response.status == 200) {
-            router.push(GreetPath)
-            window.location.reload()
+            alert("Вы успешно зарегистрированы")
+            back()
         }
         setLoading(false)
     }
 
     const back = () => {
-        setLoading(true)
         router.push(GreetPath)
-        setLoading(false)
     }
 
     return (

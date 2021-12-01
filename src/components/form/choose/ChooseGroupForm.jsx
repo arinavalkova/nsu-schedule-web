@@ -1,15 +1,10 @@
-import React, {useContext, useState} from 'react';
+import React, { useState} from 'react';
 import "./chooseGroupForm.css"
 import {useHistory} from "react-router-dom";
 import {AddPath} from "../../../Consts";
-import {AuthContext} from "../../../context";
 
 const ChooseGroupForm = ({setVisible, setMenuVisible}) => {
-
     const router = useHistory()
-    const {findGroup} = useContext(AuthContext)
-    const [findGroupValue, setFindGroupValue] = findGroup;
-
     const [group, setGroup] = useState("")
 
     const back = (e) => {
@@ -25,10 +20,10 @@ const ChooseGroupForm = ({setVisible, setMenuVisible}) => {
 
     const find = (e) => {
         e.preventDefault()
-        setFindGroupValue(group)
-        localStorage.setItem('groupValue', group)
+        // setFindGroupValue(group)
+        // localStorage.setItem('groupValue', group)
         setVisible(false)
-        router.push(AddPath)
+        router.push(AddPath + group)
     }
 
     return (

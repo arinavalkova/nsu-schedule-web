@@ -11,12 +11,11 @@ const SaveForm = ({lessons, setVisible, next}) => {
     const [distantLink, setDistantLink] = useState('')
     const [loading, setLoading] = useState(false)
 
-    const {isAuth} = useContext(AuthContext)
-    const [isAuthValue, setIsAuthValue] = isAuth;
+    const [isAuth] = useContext(AuthContext).isAuth
 
     const saveDistant = () => {
         setLoading(true)
-        const response = null // request to backend
+        const response = null // TODO:request to backend
         if (response == null) {
             setDistantLink('Невозможно сохранить удаленно составленное расписание')
         } else {
@@ -72,10 +71,10 @@ const SaveForm = ({lessons, setVisible, next}) => {
                     <button onClick={saveByFile}>Сохранить файлом</button>
                 </div>
                 {
-                    isAuthValue == "true" &&
+                    isAuth &&
                     <div>
-                        <button className="child" nClick={saveDistant}>Сохранить удаленно</button>
-                        <div className="child">{distantLink}</div>
+                        <button onClick={saveDistant}>Сохранить удаленно</button>
+                        <div>{distantLink}</div>
                     </div>
                 }
                 <button className="child" onClick={close}>Закрыть</button>

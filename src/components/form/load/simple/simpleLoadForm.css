@@ -1,7 +1,9 @@
 .loadForm {
-    max-width: 200px;
+    max-width: 300px;
 }
 
 .child {
     padding: 5px;
+    margin: 5px;
+    width: 80%;
 }

@@ -1,66 +1,76 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 
-export async function getGroupsFromServer() {
-    return await axios.get("http://localhost:8080/api/group_num_list")
+const getPath = path => 'http://localhost:8080/' + path;
+const getPathApi = path => getPath('api/' + path)
+const lessonPath = getPathApi('table/subject');
+
+export async function setUpAxiosCredentials() {
+    console.log("Setting up credentials")
+    axios.defaults.withCredentials = true
+    await getGroupsFromServer().then(() =>
+        axios.defaults.headers.common['X-CSRF-TOKEN'] = Cookies.get('XSRF-TOKEN')
+    )
 }
 
 export async function setAndGetScheduleFromServer(name, group) {
-    return await axios.post('http://localhost:8080/api/table', {name: name, groupNum: group})
+    return await axios.post(getPathApi('table'), { name: name, groupNum: group })
 }
 
 export async function getScheduleFromServer() {
-    return await axios.get("http://localhost:8080/api/table")
+    return await axios.get(getPathApi('table'))
 }
 
-export async function addLessonToServer(lesson) {
-    return await axios.post("http://localhost:8080/api/table/subject", {dayNum: lesson.dayNum, subject: lesson})
+export async function getGroupsFromServer() {
+    return await axios.get(getPathApi('group_num_list'))
 }
 
 export async function deleteLessonFromServer(lesson) {
-    return await axios.delete("http://localhost:8080/api/table/subject", {data: lesson})
-}
-
-export async function getGroupScheduleFromServer(group) {
-    return await axios.get('http://localhost:8080/api/table/' + group)
+    return await axios.delete(lessonPath, { data: lesson })
 }
 
 export async function changeLessonFromServer(oldSubject, newSubjectParams) {
-    return await axios.put('http://localhost:8080/api/table/subject', {oldSubject, ...newSubjectParams})
+    return await axios.put(lessonPath, { oldSubject, ...newSubjectParams })
 }
 
-export async function logoutFromServer() {
-    await axios.post('http://localhost:8080/api/logout')
+export async function addLessonToServer(lesson) {
+    return await axios.post(lessonPath, { dayNum: lesson.dayNum, subject: lesson })
+}
+
+export async function getGroupScheduleFromServer(group) {
+    return await axios.get(getPathApi('table/' + group))
 }
 
 export async function setNewScheduleToServer(lessons) {
-    return await axios.put('http://localhost:8080/api/table', {table: lessons})
+    return await axios.put(getPathApi('table'), { table: lessons })
 }
 
 export async function registerOnTheServer(login, password) {
     let response
-    response = await axios.post('http://localhost:8080/api/user/save', {username: login, password})
+    response = await axios.post(getPathApi('user/save'), { username: login, password })
         .catch(error => response = error.response)
     return response
 }
 
+export async function logoutFromServer() {
+    await axios.post(getPath('logout'))
+}
+
 export async function authenticateOnTheServer(login, password) {
+    const data = 'username=' + login + '&password=' + password + '&_csrf=' + Cookies.get('XSRF-TOKEN')
     let response
-    response = await axios.post('http://localhost:8080/login', {username: login, password})
+    response = await axios.post(getPath('login'), data)
         .catch(error => response = error.response)
     return response
 }
 
 export async function forgotPasswordFromServer(email) {
     let response
-    response = await axios.post('http://localhost:8080/api/user/password', {email})
+    response = await axios.post(getPathApi('user/password'), { email })
         .catch(error => response = error.response)
     return response
 }
 
-export async function getBaseScheduleFromServer() {
-    return await axios.get('http://localhost:8080/api/student_info')
-}
-
-export async function saveBaseScheduleToServer(name, group) {
-    await axios.post('http://localhost:8080/api/student_info', {name, groupNum: group})
+export async function isAuthenticated() {
+    return await axios.get(getPathApi('is_logged_in'))
 }

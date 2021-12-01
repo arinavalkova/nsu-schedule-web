@@ -1,37 +1,36 @@
-import React, {useEffect, useState} from "react";
-import {BrowserRouter} from "react-router-dom";
+import "./App.css"
+
+import React, { useEffect, useState } from "react";
+import { BrowserRouter } from "react-router-dom";
 import ApplicationRouter from "./router/ApplicationRouter";
-import {AuthContext} from "./context";
+import { AuthContext } from "./context";
 import axios from "axios";
+import Cookies from 'js-cookie';
+import { isAuthenticated } from "./ServerApi";
+
 
 function App() {
-
-    const [name, setName] = useState("")
-    const [group, setGroup] = useState("")
-    const [isAuth, setIsAuth] = useState("")
-    const [findGroup, setFindGroup] = useState("")
+    const [isAuth, setIsAuth] = useState(false)
 
     useEffect(() => {
-        setName(localStorage.getItem('name'))
-        setGroup(localStorage.getItem('group'))
-        setFindGroup(localStorage.getItem('findGroup'))
-        setIsAuth(localStorage.getItem('isAuth'))
-        axios.defaults.withCredentials = true
+        (async () => {
+            console.log("Setting up credentials")
+            axios.defaults.withCredentials = true
+            const serverIsAuth = await isAuthenticated()
+            axios.defaults.headers.common['X-CSRF-TOKEN'] = Cookies.get('XSRF-TOKEN')
+            setIsAuth(serverIsAuth.data)
+        })()
     }, [])
 
-    return (
-        <AuthContext.Provider
-            value={{
-                name: [name, setName],
-                group: [group, setGroup],
-                findGroup: [findGroup, setFindGroup],
-                isAuth: [isAuth, setIsAuth]
-            }}>
-            <BrowserRouter>
-                <ApplicationRouter/>
-            </BrowserRouter>
-        </AuthContext.Provider>
-    );
+    return <AuthContext.Provider
+        value={{
+            isAuth: [isAuth, setIsAuth]
+        }}>
+
+        <BrowserRouter>
+            <ApplicationRouter/>
+        </BrowserRouter>
+    </AuthContext.Provider>
 }
 
 export default App;

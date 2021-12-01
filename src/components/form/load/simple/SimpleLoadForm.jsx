@@ -1,16 +1,12 @@
-import React, {useContext, useState} from 'react';
+import React, { useState } from 'react';
 import "./simpleLoadForm.css"
 import LoadingPage from "../../../loader/LoadingPage";
-import {AuthContext} from "../../../../context";
 
-const SimpleLoadForm = ({loadFromLocal, loadFromDistant, setVisible}) => {
+const SimpleLoadForm = ({ loadFromLocal, loadFromDistant, setVisible}) => {
 
     const [localLink, setLocalLink] = useState("")
     const [loading, setLoading] = useState(false)
     const [distantLink, setDistantLink] = useState("")
-
-    const {isAuth} = useContext(AuthContext)
-    const [isAuthValue, setIsAuthValue] = isAuth;
 
     const close = (e) => {
         e.preventDefault()
@@ -42,18 +38,15 @@ const SimpleLoadForm = ({loadFromLocal, loadFromDistant, setVisible}) => {
                 <LoadingPage visible={loading}/>
                 <h2>Загрузить расписание:</h2>
                 <div>
-                    <input type="text" placeholder={"Введите локальную ссылку"} value={localLink}
+                    <input className="child"  type="text" placeholder={"Введите локальную ссылку"} value={localLink}
                            onChange={(e) => setLocalLink(e.target.value)}/>
                     <button className="child" onClick={loadFromLocalLink}>Загрузить по локальной ссылке</button>
                 </div>
-                {
-                    isAuthValue == "true" &&
-                    <div>
-                        <input className="child" type="text" placeholder={"Введите дистанционную ссылку"} value={distantLink}
-                               onChange={(e) => setDistantLink(e.target.value)}/>
-                        <button className="child" onClick={loadFromDistantLink}>Загрузить по удаленной ссылке</button>
-                    </div>
-                }
+                <div>
+                    <input className="child" type="text" placeholder={"Введите дистанционную ссылку"} value={distantLink}
+                           onChange={(e) => setDistantLink(e.target.value)}/>
+                    <button className="child" onClick={loadFromDistantLink}>Загрузить по удаленной ссылке</button>
+                </div>
                 <button className="child" onClick={close}>Закрыть</button>
             </div>
         </form>

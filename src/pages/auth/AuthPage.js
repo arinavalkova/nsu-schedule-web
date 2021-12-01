@@ -1,11 +1,12 @@
-import React, {useState} from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import "./auth.css"
-import {useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import LoadingPage from "../../components/loader/LoadingPage";
-import {GreetPath} from "../../Consts";
+import { GreetPath } from "../../Consts";
 import Modal from "../../components/form/modal/Modal";
 import RestorePasswordForm from "../../components/form/restore/RestorePasswordForm";
-import {authenticateOnTheServer, forgotPasswordFromServer} from "../../ServerApi";
+import { authenticateOnTheServer } from "../../ServerApi";
+import { AuthContext } from "../../context";
 
 const AuthPage = () => {
 
@@ -15,16 +16,23 @@ const AuthPage = () => {
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
 
+    const [isAuth, setIsAuth] = useContext(AuthContext).isAuth
+
     const router = useHistory()
+
+    useEffect(() => {
+            if (isAuth) back()
+        },
+        [])
 
     const auth = async () => {
         setLoading(true)
         const response = await authenticateOnTheServer(login, password)
-        if (response.status == 200) {
-            localStorage.setItem('isAuth', "true")
+        if (response.status === 200) {
             router.push(GreetPath)
             setLogin('')
             setPassword('')
+            setIsAuth(true)
         } else {
             alert("Не удалось авторизоваться!")
         }
@@ -32,11 +40,9 @@ const AuthPage = () => {
     }
 
     const back = () => {
-        setLoading(true)
         setLogin('')
         setPassword('')
         router.push(GreetPath)
-        setLoading(false)
     }
 
     return (

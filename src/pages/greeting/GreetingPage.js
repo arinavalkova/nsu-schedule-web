@@ -1,95 +1,52 @@
 import "./greeting.css"
-
-import React, {useContext, useEffect, useState} from 'react';
-import {useHistory} from "react-router-dom";
-import {AuthPath, MainPath, RegPath} from "../../Consts";
+import React, { useContext, useState } from 'react';
+import { logoutFromServer, setAndGetScheduleFromServer, setNewScheduleToServer } from "../../ServerApi";
+import { useHistory } from "react-router-dom";
 import LoadingPage from "../../components/loader/LoadingPage";
-import {
-    getBaseScheduleFromServer,
-    getGroupsFromServer,
-    getScheduleFromServer, logoutFromServer,
-    setAndGetScheduleFromServer,
-    setNewScheduleToServer
-} from "../../ServerApi";
-import Modal from "../../components/form/modal/Modal";
+import { AuthPath, MainPath, RegPath } from "../../Consts";
 import SimpleLoadForm from "../../components/form/load/simple/SimpleLoadForm";
-import {AuthContext} from "../../context";
-import axios from "axios";
+import Modal from "../../components/form/modal/Modal";
+import { AuthContext } from "../../context";
 
 const GreetingPage = () => {
 
     const [loading, setLoading] = useState(false)
-    const [nameState, setNameState] = useState("");
-    const [groupState, setGroupState] = useState("")
+    const [nameState, setNameState] = useState("Валькова Арина Сергеевна");
+    const [groupState, setGroupState] = useState("18206")
     const [loadForm, setLoadForm] = useState(false)
-
-    const {isAuth} = useContext(AuthContext)
-    const [isAuthValue, setIsAuthValue] = isAuth;
-
-    useEffect(() => {
-        axios.defaults.withCredentials = true
-        getBaseSchedule()
-    }, [isAuth])
-
-
-    const getBaseSchedule = async () => {
-        if (isAuthValue == "true") {
-            const response = await getBaseScheduleFromServer()
-            setNameState(response.name)
-            setGroupState(response.groupNum)
-        }
-    }
+    const [isAuth, setIsAuth] = useContext(AuthContext).isAuth
 
     const router = useHistory()
 
-    const auth = () => {
-        setLoading(true)
-        router.push(AuthPath)
-        setLoading(false)
-    }
-
-    const reg = () => {
-        setLoading(true)
-        router.push(RegPath)
-        setLoading(false)
-    }
-
-    async function isScheduleCorrect() {
-        const response = await getGroupsFromServer()
-        for (const group of response.data) {
-            if (group == groupState)
-                return true
-        }
-        return false
-    }
-
     const showSchedule = async () => {
         setLoading(true)
-        if (await isScheduleCorrect()) {
+        try {
             await setAndGetScheduleFromServer(nameState, groupState)
-            const data = (await getScheduleFromServer()).data
-            if (data) {
-                localStorage.setItem('name', nameState)
-                localStorage.setItem('group', groupState)
-                router.push(MainPath)
-                window.location.reload()
-            }
-        } else alert("Некорректные данные!")
+            router.push(MainPath)
+        } catch (error) {
+            if (error.response.status === 400)
+                alert("Некорректные данные!")
+            else
+                alert("Неизвестная ошибка")
+        }
         setLoading(false)
     }
 
-    const load = async (base64) => {
+    const loadFromLocal = async base64 => {
         setLoading(true)
-        console.log((window.atob(base64)))
-        await setNewScheduleToServer(JSON.parse(decodeURIComponent(escape(window.atob(base64)))))
-        const data = (await getScheduleFromServer()).data
-        if (data) {
+        try {
+            await setNewScheduleToServer(
+                JSON.parse(decodeURIComponent(escape(window.atob(base64)))))
             router.push(MainPath)
-            window.location.reload()
-        } else {
+        } catch (err) {
             alert("Произошла ошибка при загрузке расписания")
+            console.log(err)
         }
         setLoading(false)
+    }
+
+    const loadFromDistant = async link => {
+
     }
 
     const setLoadFormEvent = (event) => {
@@ -100,46 +57,52 @@ const GreetingPage = () => {
     const logout = async () => {
         setLoading(true)
         await logoutFromServer()
-        if (!(await getScheduleFromServer()).data) {
-            localStorage.setItem('isAuth', "false")
-            setIsAuthValue(false)
-            window.location.reload()
-        }
+        setIsAuth(false)
         setLoading(false)
     }
 
-    return (
-        <div className="parent">
-            <div className="box">
-                <h1 className="child">Расписание НГУ</h1>
-                <LoadingPage visible={loading}/>
-                <div className="buttonsBox">
-                    {
-                        isAuthValue == "false" &&
-                        <div>
-                            <button className="child" onClick={auth}>Войти</button>
-                            <button className="child" onClick={reg}>Регистрация</button>
-                        </div>
-                    }
-                    {
-                        isAuthValue == "true" &&
-                        <button className="child" onClick={logout}>Выйти</button>
-                    }
-                    <input value={nameState}
-                           onChange={(e) => setNameState(e.target.value)}
-                           className="child" type="text" placeholder="Введите ФИО"/>
-                    <input value={groupState}
-                           onChange={(e) => setGroupState(e.target.value)}
-                           className="child" type="text" placeholder="Введите группу"/>
-                    <button onClick={showSchedule} className="child">Показать расписание</button>
-                    <button onClick={setLoadFormEvent} className="child">Загрузить расписание</button>
-                    <Modal visible={loadForm} setVisible={setLoadForm}>
-                        <SimpleLoadForm load={load} setVisible={setLoadForm}/>
-                    </Modal>
-                </div>
+     return <div className="parent">
+        <div className="box">
+            <h1>Расписание НГУ</h1>
+            <LoadingPage visible={loading}/>
+            <div className="buttonsBox">
+                {
+                    !isAuth &&
+                    <div>
+                        <button className="child" onClick={() => router.push(AuthPath)}>Вход</button>
+                        <button className="child" onClick={() => router.push(RegPath)}>Регистрация</button>
+                    </div>
+                }
+                {
+                    isAuth &&
+                    <button className="child" onClick={logout}>Выйти</button>
+                }
+                <div className="child"/>
+                <input value={nameState}
+                       onChange={e => setNameState(e.target.value)}
+                       className="child" type="text" placeholder="Введите ФИО"/>
+                <input value={groupState}
+                       onChange={e => setGroupState(e.target.value)}
+                       className="child" type="text" placeholder="Введите группу"/>
+                <button
+                    onClick={showSchedule}
+                    className="child">
+                    Показать расписание
+                </button>
+                <button
+                    onClick={setLoadFormEvent}
+                    className="child" >
+                    Загрузить расписание
+                </button>
+                <Modal visible={loadForm} setVisible={setLoadForm}>
+                    <SimpleLoadForm
+                        loadFromLocal={loadFromLocal}
+                        loadFromDistant={loadFromDistant}
+                        setVisible={setLoadForm}/>
+                </Modal>
             </div>
         </div>
-    );
-};
+    </div>
+}
 
 export default GreetingPage;

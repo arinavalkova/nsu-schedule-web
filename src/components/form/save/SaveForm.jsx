@@ -74,8 +74,8 @@ const SaveForm = ({lessons, setVisible, next}) => {
                 {
                     isAuthValue == "true" &&
                     <div>
-                        <button onClick={saveDistant}>Сохранить удаленно</button>
-                        <div>{distantLink}</div>
+                        <button className="child" nClick={saveDistant}>Сохранить удаленно</button>
+                        <div className="child">{distantLink}</div>
                     </div>
                 }
                 <button className="child" onClick={close}>Закрыть</button>

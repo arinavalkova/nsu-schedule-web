@@ -44,14 +44,14 @@ const SimpleLoadForm = ({loadFromLocal, loadFromDistant, setVisible}) => {
                 <div>
                     <input type="text" placeholder={"Введите локальную ссылку"} value={localLink}
                            onChange={(e) => setLocalLink(e.target.value)}/>
-                    <button onClick={loadFromLocalLink}>Загрузить по локальной ссылке</button>
+                    <button className="child" onClick={loadFromLocalLink}>Загрузить по локальной ссылке</button>
                 </div>
                 {
                     isAuthValue == "true" &&
                     <div>
-                        <input type="text" placeholder={"Введите дистанционную ссылку"} value={distantLink}
+                        <input className="child" type="text" placeholder={"Введите дистанционную ссылку"} value={distantLink}
                                onChange={(e) => setDistantLink(e.target.value)}/>
-                        <button onClick={loadFromDistantLink}>Загрузить по удаленной ссылке</button>
+                        <button className="child" onClick={loadFromDistantLink}>Загрузить по удаленной ссылке</button>
                     </div>
                 }
                 <button className="child" onClick={close}>Закрыть</button>

@@ -1,7 +1,7 @@
 import '../../App.css';
 import "./mainPage.css"
 import LoadingPage from "../../components/loader/LoadingPage";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { EditPath, GreetPath } from "../../Consts";
 import Cell from "../../components/cell/Cell";
@@ -18,6 +18,7 @@ import SaveForm from "../../components/form/save/SaveForm";
 import ComplexLoadForm from "../../components/form/load/complex/ComplexLoadForm";
 import SimpleLoadForm from "../../components/form/load/simple/SimpleLoadForm";
 import SaveStudentInfoForm from "../../components/form/saveStudentInfo/SaveStudentInfoFrom";
+import { AuthContext } from "../../context";
 
 
 const MainPage = () => {
@@ -31,6 +32,7 @@ const MainPage = () => {
     const [simpleFormMenu, setSimpleFormMenu] = useState(false)
     const [loading, setLoading] = useState(false)
     const [infoMenu, setInfoMenu] = useState(false)
+    const [isAuth, setIsAuth] = useContext(AuthContext).isAuth
 
     const router = useHistory()
     useEffect(() => {
@@ -96,7 +98,10 @@ const MainPage = () => {
                 <button className="editButton" onClick={() => router.push(EditPath)}>Изменить</button>
                 <button className="otherButton" onClick={() => setComplexLoadMenu(true)}>Загрузить расписание</button>
                 <button className="otherButton" onClick={() => setSaveFormMenu(true)}>Сохранить расписание</button>
-                <button className="otherButton" onClick={() => setInfoMenu(true)}>Запомнить ФИО и группу</button>
+                {
+                    isAuth &&
+                    <button className="otherButton" onClick={() => setInfoMenu(true)}>Запомнить ФИО и группу</button>
+                }
             </div>
             <div><h1 className="headerText">{nameValue} {groupValue}</h1></div>
             <div className="content">

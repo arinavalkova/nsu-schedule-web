@@ -1,6 +1,7 @@
 import "./greeting.css"
 import React, { useContext, useEffect, useState } from 'react';
 import {
+    getStringFromServer,
     getStudentInfoFromServer,
     logoutFromServer,
     setAndGetScheduleFromServer,
@@ -28,7 +29,7 @@ const GreetingPage = () => {
     }, [isAuth])
 
     const fetchStudentInfo = async () => {
-        const {name, groupNum} = (await getStudentInfoFromServer()).data
+        const { name, groupNum } = (await getStudentInfoFromServer()).data
         setNameState(name)
         setGroupState(groupNum)
     }
@@ -46,12 +47,13 @@ const GreetingPage = () => {
         }
         setLoading(false)
     }
+    const btot = base64 => JSON.parse(decodeURIComponent(escape(window.atob(base64))))
 
     const loadFromLocal = async base64 => {
         setLoading(true)
         try {
-            await setNewScheduleToServer(
-                JSON.parse(decodeURIComponent(escape(window.atob(base64)))))
+            await setNewScheduleToServer(btot(base64))
+            // JSON.parse(decodeURIComponent(escape(window.atob(base64)))))
             router.push(MainPath)
         } catch (err) {
             alert("Произошла ошибка при загрузке расписания")
@@ -61,6 +63,17 @@ const GreetingPage = () => {
     }
 
     const loadFromDistant = async link => {
+        setLoading(true)
+        try {
+
+            const base64 = await getStringFromServer(link)
+            await setNewScheduleToServer(btot(base64))
+            router.push(MainPath)
+        } catch (err) {
+            alert("Произошла ошибка!")
+            console.log(err.message)
+            setLoading(false)
+        }
 
     }
 
@@ -76,7 +89,7 @@ const GreetingPage = () => {
         setLoading(false)
     }
 
-     return <div className="parent">
+    return <div className="parent">
         <div className="box">
             <h1>Расписание НГУ</h1>
             <LoadingPage visible={loading}/>
@@ -106,7 +119,7 @@ const GreetingPage = () => {
                 </button>
                 <button
                     onClick={setLoadFormEvent}
-                    className="child" >
+                    className="child">
                     Загрузить расписание
                 </button>
                 <Modal visible={loadForm} setVisible={setLoadForm}>

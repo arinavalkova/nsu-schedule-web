@@ -67,7 +67,6 @@ const MainPage = () => {
         setLoading(true)
         try {
             await setNewScheduleToServer(btot(base64))
-            // JSON.parse(decodeURIComponent(escape(window.atob(base64)))))
             await fetchTable()
         } catch (err) {
             alert("Произошла ошибка при загрузке расписания!")

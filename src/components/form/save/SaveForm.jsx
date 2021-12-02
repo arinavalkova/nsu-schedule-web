@@ -1,10 +1,10 @@
-import React, {useContext, useRef, useState} from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import "./saveForm.css"
-import {saveAs} from 'file-saver';
+import { saveAs } from 'file-saver';
 import LoadingPage from "../../loader/LoadingPage";
-import {AuthContext} from "../../../context";
+import { AuthContext } from "../../../context";
 
-const SaveForm = ({lessons, setVisible, next}) => {
+const SaveForm = ({ lessons, setVisible, next }) => {
 
     const [copySuccess, setCopySuccess] = useState('');
     const textAreaRef = useRef(null);
@@ -45,7 +45,7 @@ const SaveForm = ({lessons, setVisible, next}) => {
         setLoading(true)
         e.preventDefault()
         const blob = new Blob([baseString],
-            {type: "text/plain;charset=utf-8"});
+            { type: "text/plain;charset=utf-8" });
         saveAs(blob, "schedule_string.txt");
         setLoading(false)
     }
@@ -64,11 +64,19 @@ const SaveForm = ({lessons, setVisible, next}) => {
                     {
                         document.queryCommandSupported('copy') &&
                         <div>
-                            <button onClick={copyToClipboard}>Скопировать</button>
+                            <button
+                                className="child"
+                                onClick={copyToClipboard}>
+                                Скопировать
+                            </button>
                             {copySuccess}
                         </div>
                     }
-                    <button onClick={saveByFile}>Сохранить файлом</button>
+                    <button
+                        className="child"
+                        onClick={saveByFile}>
+                        Сохранить файлом
+                    </button>
                 </div>
                 {
                     isAuth &&

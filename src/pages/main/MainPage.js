@@ -12,6 +12,7 @@ import Modal from "../../components/form/modal/Modal";
 import SaveForm from "../../components/form/save/SaveForm";
 import ComplexLoadForm from "../../components/form/load/complex/ComplexLoadForm";
 import SimpleLoadForm from "../../components/form/load/simple/SimpleLoadForm";
+import SaveStudentInfoForm from "../../components/form/saveStudentInfo/SaveStudentInfoFrom";
 
 
 const MainPage = () => {
@@ -24,6 +25,7 @@ const MainPage = () => {
     const [complexSaveFormMenu, setComplexSaveFormMenu] = useState(false)
     const [simpleFormMenu, setSimpleFormMenu] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [infoMenu, setInfoMenu] = useState(false)
 
     const router = useHistory()
     useEffect(() => {
@@ -77,13 +79,17 @@ const MainPage = () => {
             <div className="header">
                 <button className="backButton" onClick={back}>Назад</button>
                 <button className="editButton" onClick={() => router.push(EditPath)}>Изменить</button>
-                <button className="loadButton" onClick={() => setComplexLoadMenu(true)}>Загрузить расписание</button>
-                <button className="saveButton" onClick={() => setSaveFormMenu(true)}>Сохранить расписание</button>
+                <button className="otherButton" onClick={() => setComplexLoadMenu(true)}>Загрузить расписание</button>
+                <button className="otherButton" onClick={() => setSaveFormMenu(true)}>Сохранить расписание</button>
+                <button className="otherButton" onClick={() => setInfoMenu(true)}>Запомнить ФИО и группу</button>
             </div>
             <div><h1 className="headerText">{nameValue} {groupValue}</h1></div>
             <div className="content">
                 <ScheduleTable lessons={lessons} CellClass={Cell} LessonClass={SimpleLesson}/>
             </div>
+            <Modal visible={infoMenu} setVisible={setInfoMenu}>
+                <SaveStudentInfoForm name={nameValue} group={groupValue} setVisible={setInfoMenu}/>
+            </Modal>
             <Modal visible={saveFormMenu} setVisible={setSaveFormMenu}>
                 <SaveForm lessons={lessons} setVisible={setSaveFormMenu}/>
             </Modal>

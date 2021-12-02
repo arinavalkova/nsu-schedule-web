@@ -12,6 +12,11 @@
     margin-right: 7px;
 }
 
+.otherButton {
+    float: right;
+    margin-right: 7px;
+}
+
 .headerText {
     text-align: center;
     padding-top: 10px;

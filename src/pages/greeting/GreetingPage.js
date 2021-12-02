@@ -1,6 +1,11 @@
 import "./greeting.css"
-import React, { useContext, useState } from 'react';
-import { logoutFromServer, setAndGetScheduleFromServer, setNewScheduleToServer } from "../../ServerApi";
+import React, { useContext, useEffect, useState } from 'react';
+import {
+    getStudentInfoFromServer,
+    logoutFromServer,
+    setAndGetScheduleFromServer,
+    setNewScheduleToServer
+} from "../../ServerApi";
 import { useHistory } from "react-router-dom";
 import LoadingPage from "../../components/loader/LoadingPage";
 import { AuthPath, MainPath, RegPath } from "../../Consts";
@@ -17,6 +22,16 @@ const GreetingPage = () => {
     const [isAuth, setIsAuth] = useContext(AuthContext).isAuth
 
     const router = useHistory()
+
+    useEffect(() => {
+        if (isAuth) fetchStudentInfo()
+    }, [isAuth])
+
+    const fetchStudentInfo = async () => {
+        const {name, groupNum} = (await getStudentInfoFromServer()).data
+        setNameState(name)
+        setGroupState(groupNum)
+    }
 
     const showSchedule = async () => {
         setLoading(true)

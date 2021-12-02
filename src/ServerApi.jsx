@@ -74,3 +74,11 @@ export async function forgotPasswordFromServer(email) {
 export async function isAuthenticated() {
     return await axios.get(getPathApi('is_logged_in'))
 }
+
+export async function saveStudentInfoToServer(name, groupNum) {
+    return await axios.post(getPathApi('student_info'), { name, groupNum })
+}
+
+export async function getStudentInfoFromServer() {
+    return await axios.get(getPathApi('student_info'))
+}

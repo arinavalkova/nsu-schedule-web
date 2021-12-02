@@ -1,0 +1,12 @@
+.saveStudentInfoForm {
+    max-width: 500px;
+    max-height: 500px;
+}
+
+.child {
+    margin-left: 10px;
+}
+
+.paragraph {
+    white-space: pre-line
+}

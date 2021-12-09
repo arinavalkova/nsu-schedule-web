@@ -84,7 +84,7 @@ export async function getStudentInfoFromServer() {
 }
 
 export async function saveStringToServer(string) {
-    let path = getPathApi('base64')
+    let path = getPath('')
     return path + '/' + (await axios.post(path, {string})).data
 }
 

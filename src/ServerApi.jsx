@@ -85,7 +85,7 @@ export async function getStudentInfoFromServer() {
 
 export async function saveStringToServer(string) {
     let path = getPath('')
-    return path + '/' + (await axios.post(path, {string})).data
+    return path + (await axios.post(path, {string})).data
 }
 
 export async function getStringFromServer(link) {

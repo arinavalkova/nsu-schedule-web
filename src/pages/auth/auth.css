@@ -22,3 +22,7 @@
 .authForm {
     max-width: 200px;
 }
+
+.authForm input {
+    width: 237px;
+}

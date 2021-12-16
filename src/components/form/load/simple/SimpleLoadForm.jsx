@@ -38,16 +38,16 @@ const SimpleLoadForm = ({ loadFromLocal, loadFromDistant, setVisible}) => {
                 <LoadingPage visible={loading}/>
                 <h2>Загрузить расписание:</h2>
                 <div>
-                    <input className="child"  type="text" placeholder={"Введите локальную ссылку"} value={localLink}
+                    <input className="childLoadForm"  type="text" placeholder={"Введите локальную ссылку"} value={localLink}
                            onChange={(e) => setLocalLink(e.target.value)}/>
-                    <button className="child" onClick={loadFromLocalLink}>Загрузить по локальной ссылке</button>
+                    <button className="childLoadForm" onClick={loadFromLocalLink}>Загрузить по локальной ссылке</button>
                 </div>
                 <div>
-                    <input className="child" type="text" placeholder={"Введите дистанционную ссылку"} value={distantLink}
+                    <input className="childLoadForm" type="text" placeholder={"Введите дистанционную ссылку"} value={distantLink}
                            onChange={(e) => setDistantLink(e.target.value)}/>
-                    <button className="child" onClick={loadFromDistantLink}>Загрузить по удаленной ссылке</button>
+                    <button className="childLoadForm" onClick={loadFromDistantLink}>Загрузить по удаленной ссылке</button>
                 </div>
-                <button className="child" onClick={close}>Закрыть</button>
+                <button className="childLoadForm" onClick={close}>Закрыть</button>
             </div>
         </form>
     );

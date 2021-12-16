@@ -34,12 +34,12 @@ const RegPage = () => {
     return (
         <div className="parent">
             <div className="box">
-                <h1 className="child">Регистрация</h1>
+                <h1>Регистрация</h1>
                 <LoadingPage visible={loading}/>
                 <div className="regForm">
                     <input className="child" placeholder="Логин" value={login}
                            onChange={e => setLogin(e.target.value)}/>
-                    <input className="child" placeholder="Пароль" value={password}
+                    <input type="password" className="child" placeholder="Пароль" value={password}
                            onChange={e => setPassword(e.target.value)}/>
                     <button className="child" onClick={reg}>Зарегистрироваться</button>
                     <button className="child" onClick={back}>Назад</button>

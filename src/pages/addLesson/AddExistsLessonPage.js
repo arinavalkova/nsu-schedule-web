@@ -31,7 +31,7 @@ const AddExistsLessonPage = props => {
             setLoading(false)
             if (!data.table) back()
         } catch (err) {
-            alert(err.message)
+            alert("Не удалось загрузить группу!")
             back()
         }
     }

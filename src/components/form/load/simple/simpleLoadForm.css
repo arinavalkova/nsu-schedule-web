@@ -2,8 +2,12 @@
     max-width: 300px;
 }
 
-.child {
+.childLoadForm {
     padding: 5px;
     margin: 5px;
-    width: 80%;
+    width: 290px;
+}
+
+.loadForm input {
+    width: 277px;
 }

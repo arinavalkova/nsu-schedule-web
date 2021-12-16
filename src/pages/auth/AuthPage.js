@@ -56,7 +56,7 @@ const AuthPage = () => {
                 <div className="authForm">
                     <input className="child" placeholder="Логин" value={login}
                            onChange={event => setLogin(event.target.value)}/>
-                    <input className="child" placeholder="Пароль" value={password}
+                    <input type="password" className="child" placeholder="Пароль" value={password}
                            onChange={event => setPassword(event.target.value)}/>
                     <button className="child" onClick={auth}>Авторизоваться</button>
                     <button className="child" onClick={() => setRestoreForm(true)}>Восстановить пароль</button>

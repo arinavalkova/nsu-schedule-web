@@ -17,8 +17,8 @@ import { AuthContext } from "../../context";
 const GreetingPage = () => {
 
     const [loading, setLoading] = useState(false)
-    const [nameState, setNameState] = useState("Валькова Арина Сергеевна");
-    const [groupState, setGroupState] = useState("18206")
+    const [nameState, setNameState] = useState("");
+    const [groupState, setGroupState] = useState("")
     const [loadForm, setLoadForm] = useState(false)
     const [isAuth, setIsAuth] = useContext(AuthContext).isAuth
 
@@ -86,6 +86,8 @@ const GreetingPage = () => {
         setLoading(true)
         await logoutFromServer()
         setIsAuth(false)
+        setNameState("")
+        setGroupState("")
         setLoading(false)
     }
 
@@ -108,10 +110,10 @@ const GreetingPage = () => {
                 <div className="child"/>
                 <input value={nameState}
                        onChange={e => setNameState(e.target.value)}
-                       className="child" type="text" placeholder="Введите ФИО"/>
+                       className="child greatInput" type="text" placeholder="Введите ФИО"/>
                 <input value={groupState}
                        onChange={e => setGroupState(e.target.value)}
-                       className="child" type="text" placeholder="Введите группу"/>
+                       className="child greatInput" type="text" placeholder="Введите группу"/>
                 <button
                     onClick={showSchedule}
                     className="child">

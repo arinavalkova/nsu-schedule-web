@@ -22,3 +22,7 @@
 .regForm {
     max-width: 250px;
 }
+
+.regForm input {
+    width: 237px;
+}

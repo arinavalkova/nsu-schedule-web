@@ -1,8 +1,13 @@
 .child {
-    width: 100%;
     padding: 5px;
     margin: 5px;
+    width: 250px;
 }
+
+.greatInput {
+    width: 237px;
+}
+
 .parent {
     width: 100%;
     height: 100%;

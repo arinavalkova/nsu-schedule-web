@@ -1,7 +1,9 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const getPath = path => 'http://localhost:8080/' + path;
+console.log(process.env.REACT_APP_BACKENDHOST)
+const getPath = path => process.env.REACT_APP_BACKENDHOST + path
+console.log(process.env.REACT_APP_BACKENDHOST)
 const getPathApi = path => getPath('api/' + path)
 const lessonPath = getPathApi('table/subject');
 
